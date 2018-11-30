@@ -1,0 +1,1574 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Zeppelin 0.7.2 中文文档">
+      
+      
+        <link rel="canonical" href="http://zeppelin.apachecn.org/68/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) ) - Zeppelin 0.7.2 中文文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4bb062e5de7b0bfc7e39b8d9fc44d5ca";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+    <!-- google webmaster -->
+    <meta name="google-site-verification" content="pyo9N70ZWyh8JB43bIu633mhxesJ1IcwWCZlM3jUfFo" />
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../#writing-a-new-application-experimental" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://zeppelin.apachecn.org" title="Zeppelin 0.7.2 中文文档" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Zeppelin 0.7.2 中文文档
+              </span>
+              <span class="md-header-nav__topic">
+                Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) )
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/zeppelin-doc-zh/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      zeppelin-doc-zh
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://zeppelin.apachecn.org" title="Zeppelin 0.7.2 中文文档" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Zeppelin 0.7.2 中文文档
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/zeppelin-doc-zh/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      zeppelin-doc-zh
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Zeppelin 0.7.2 中文文档" class="md-nav__link">
+      Zeppelin 0.7.2 中文文档
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1/" title="快速入门" class="md-nav__link">
+      快速入门
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2/" title="什么是Apache Zeppelin?" class="md-nav__link">
+      什么是Apache Zeppelin?
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3/" title="安装" class="md-nav__link">
+      安装
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4/" title="配置" class="md-nav__link">
+      配置
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5/" title="探索Apache Zeppelin UI" class="md-nav__link">
+      探索Apache Zeppelin UI
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6/" title="教程" class="md-nav__link">
+      教程
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7/" title="动态表单" class="md-nav__link">
+      动态表单
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8/" title="发表你的段落" class="md-nav__link">
+      发表你的段落
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9/" title="自定义Zeppelin主页" class="md-nav__link">
+      自定义Zeppelin主页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10/" title="升级Zeppelin版本" class="md-nav__link">
+      升级Zeppelin版本
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11/" title="从源码编译" class="md-nav__link">
+      从源码编译
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12/" title="使用Flink和Spark Clusters安装Zeppelin教程" class="md-nav__link">
+      使用Flink和Spark Clusters安装Zeppelin教程
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13/" title="解释器" class="md-nav__link">
+      解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14/" title="概述" class="md-nav__link">
+      概述
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15/" title="解释器安装" class="md-nav__link">
+      解释器安装
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16/" title="解释器依赖管理" class="md-nav__link">
+      解释器依赖管理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../17/" title="解释器的模拟用户" class="md-nav__link">
+      解释器的模拟用户
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../18/" title="解释员执行Hook（实验）" class="md-nav__link">
+      解释员执行Hook（实验）
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../19/" title="Alluxio 解释器" class="md-nav__link">
+      Alluxio 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../20/" title="Beam 解释器" class="md-nav__link">
+      Beam 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../21/" title="BigQuery 解释器" class="md-nav__link">
+      BigQuery 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../22/" title="Cassandra CQL 解释器" class="md-nav__link">
+      Cassandra CQL 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../23/" title="Elasticsearch 解释器" class="md-nav__link">
+      Elasticsearch 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../24/" title="Flink 解释器" class="md-nav__link">
+      Flink 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../25/" title="Geode/Gemfire OQL 解释器" class="md-nav__link">
+      Geode/Gemfire OQL 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../26/" title="HBase Shell 解释器" class="md-nav__link">
+      HBase Shell 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../27/" title="HDFS文件系统 解释器" class="md-nav__link">
+      HDFS文件系统 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../28/" title="Hive 解释器" class="md-nav__link">
+      Hive 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../29/" title="Ignite 解释器" class="md-nav__link">
+      Ignite 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../30/" title="JDBC通用 解释器" class="md-nav__link">
+      JDBC通用 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../31/" title="Kylin 解释器" class="md-nav__link">
+      Kylin 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../32/" title="Lens 解释器" class="md-nav__link">
+      Lens 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../33/" title="Livy 解释器" class="md-nav__link">
+      Livy 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../34/" title="Markdown 解释器" class="md-nav__link">
+      Markdown 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../35/" title="Pig 解释器" class="md-nav__link">
+      Pig 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../36/" title="PostgreSQL, HAWQ 解释器" class="md-nav__link">
+      PostgreSQL, HAWQ 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../37/" title="Python 2＆3解释器" class="md-nav__link">
+      Python 2＆3解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../38/" title="R 解释器" class="md-nav__link">
+      R 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../39/" title="Scalding 解释器" class="md-nav__link">
+      Scalding 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../40/" title="Scio 解释器" class="md-nav__link">
+      Scio 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../41/" title="Shell 解释器" class="md-nav__link">
+      Shell 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../42/" title="Spark 解释器" class="md-nav__link">
+      Spark 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../43/" title="系统显示" class="md-nav__link">
+      系统显示
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../44/" title="系统基本显示" class="md-nav__link">
+      系统基本显示
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../45/" title="后端Angular API" class="md-nav__link">
+      后端Angular API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../46/" title="前端Angular API" class="md-nav__link">
+      前端Angular API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../47/" title="更多" class="md-nav__link">
+      更多
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../48/" title="笔记本存储" class="md-nav__link">
+      笔记本存储
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../49/" title="REST API" class="md-nav__link">
+      REST API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../50/" title="解释器 API" class="md-nav__link">
+      解释器 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../51/" title="笔记本 API" class="md-nav__link">
+      笔记本 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../52/" title="笔记本资源 API" class="md-nav__link">
+      笔记本资源 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../53/" title="配置 API" class="md-nav__link">
+      配置 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../54/" title="凭据 API" class="md-nav__link">
+      凭据 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../55/" title="Helium API" class="md-nav__link">
+      Helium API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../56/" title="Security ( 安全 )" class="md-nav__link">
+      Security ( 安全 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../57/" title="Shiro 授权" class="md-nav__link">
+      Shiro 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../58/" title="笔记本 授权" class="md-nav__link">
+      笔记本 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../59/" title="数据源 授权" class="md-nav__link">
+      数据源 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../60/" title="Helium 授权" class="md-nav__link">
+      Helium 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../61/" title="Advanced ( 高级 )" class="md-nav__link">
+      Advanced ( 高级 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../62/" title="Zeppelin on Vagrant VM ( Zeppelin 在 Vagrant 虚拟机上 )" class="md-nav__link">
+      Zeppelin on Vagrant VM ( Zeppelin 在 Vagrant 虚拟机上 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../63/" title="Zeppelin on Spark Cluster Mode( Spark 集群模式下的 Zeppelin )" class="md-nav__link">
+      Zeppelin on Spark Cluster Mode( Spark 集群模式下的 Zeppelin )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../64/" title="Zeppelin on CDH ( Zeppelin 在 CDH 上 )" class="md-nav__link">
+      Zeppelin on CDH ( Zeppelin 在 CDH 上 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../65/" title="Contibute ( 贡献 )" class="md-nav__link">
+      Contibute ( 贡献 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../66/" title="Writing a New Interpreter ( 写一个新的解释器 )" class="md-nav__link">
+      Writing a New Interpreter ( 写一个新的解释器 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../67/" title="Writing a new Visualization (Experimental) ( 编写新的可视化（实验） )" class="md-nav__link">
+      Writing a new Visualization (Experimental) ( 编写新的可视化（实验） )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) )
+      </label>
+    
+    <a href="./" title="Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) )" class="md-nav__link md-nav__link--active">
+      Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) )
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apache-zeppelin-application" title="什么是 Apache Zeppelin Application ？" class="md-nav__link">
+    什么是 Apache Zeppelin Application ？
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-your-own-application-application" title="Make your own Application ( 创建你自己的 Application )" class="md-nav__link">
+    Make your own Application ( 创建你自己的 Application )
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-mode" title="Development mode ( 开发模式 )" class="md-nav__link">
+    Development mode ( 开发模式 )
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-file" title="Package file ( 包文件 )" class="md-nav__link">
+    Package file ( 包文件 )
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name" title="name ( 名称 )" class="md-nav__link">
+    name ( 名称 )
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" title="description ( 描述 )" class="md-nav__link">
+    description ( 描述 )
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact" title="artifact" class="md-nav__link">
+    artifact
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classname" title="className ( 类名 )" class="md-nav__link">
+    className ( 类名 )
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resources" title="resources ( 资源 )" class="md-nav__link">
+    resources ( 资源 )
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icon" title="icon ( 图标 )" class="md-nav__link">
+    icon ( 图标 )
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../69/" title="Contributing to Apache Zeppelin ( Code ) ( 向 Apache Zeppelin 贡献( 代码 ) )" class="md-nav__link">
+      Contributing to Apache Zeppelin ( Code ) ( 向 Apache Zeppelin 贡献( 代码 ) )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../70/" title="Contributing to Apache Zeppelin ( Website ) ( 向 Apache Zeppelin 贡献(website) )" class="md-nav__link">
+      Contributing to Apache Zeppelin ( Website ) ( 向 Apache Zeppelin 贡献(website) )
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apache-zeppelin-application" title="什么是 Apache Zeppelin Application ？" class="md-nav__link">
+    什么是 Apache Zeppelin Application ？
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-your-own-application-application" title="Make your own Application ( 创建你自己的 Application )" class="md-nav__link">
+    Make your own Application ( 创建你自己的 Application )
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-mode" title="Development mode ( 开发模式 )" class="md-nav__link">
+    Development mode ( 开发模式 )
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-file" title="Package file ( 包文件 )" class="md-nav__link">
+    Package file ( 包文件 )
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name" title="name ( 名称 )" class="md-nav__link">
+    name ( 名称 )
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" title="description ( 描述 )" class="md-nav__link">
+    description ( 描述 )
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact" title="artifact" class="md-nav__link">
+    artifact
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classname" title="className ( 类名 )" class="md-nav__link">
+    className ( 类名 )
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resources" title="resources ( 资源 )" class="md-nav__link">
+    resources ( 资源 )
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icon" title="icon ( 图标 )" class="md-nav__link">
+    icon ( 图标 )
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/zeppelin-doc-zh/edit/master/docs/68.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="writing-a-new-application-experimental">Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) )</h1>
+<p>原文链接 : <a href="http://zeppelin.apache.org/docs/0.7.2/development/writingzeppelinapplication.html">http://zeppelin.apache.org/docs/0.7.2/development/writingzeppelinapplication.html</a></p>
+<p>译文链接 : <a href="http://www.apache.wiki/pages/viewpage.action?pageId=10031114">http://www.apache.wiki/pages/viewpage.action?pageId=10031114</a></p>
+<p>贡献者 : <a href="/display/~chenyao">小瑶</a> <a href="/display/~apachecn">ApacheCN</a> <a href="/display/~apachechina">Apache中文网</a></p>
+<h2 id="apache-zeppelin-application">什么是 Apache Zeppelin Application ？</h2>
+<p><strong>Apache Zeppelin Application</strong> 是一个运行于解释器进程的软件包，并将其显示在笔记本计算机的内部。当应用程序运行在解释器进程时，它能够通过 <strong>ResourcePool</strong> 访问解释器提供的资源。输出始终由 <strong>AngularDisplaySystem</strong> 呈现。因此，应用程序提供使用任何解释器的数据和处理能力的交互式图形应用程序的所有可能性。</p>
+<h2 id="make-your-own-application-application">Make your own Application ( 创建你自己的 Application )</h2>
+<p>写入应用程序意味着扩展 <strong>org.apache.zeppelin.helium.Application</strong> 。当 <strong>Java</strong> 类文件打包到 <strong>jar</strong> 中时，您可以使用自己喜欢的 <strong>IDE</strong> 和语言。应用程序类看起来像</p>
+<pre><code>/**
+ * Constructor. Invoked when application is loaded
+ */
+public Application(ApplicationContext context);
+
+/**
+ * Invoked when there're (possible) updates in required resource set.
+ * i.e. invoked after application load and after paragraph finishes.
+ */
+public abstract void run(ResourceSet args);
+
+/**
+ * Invoked before application unload.
+ * Application is automatically unloaded with paragraph/notebook removal
+ */
+public abstract void unload();
+</code></pre>
+
+<p>您可以检查 <strong>./zeppelin-examples</strong> 目录下的示例应用程序。</p>
+<h2 id="development-mode">Development mode ( 开发模式 )</h2>
+<p>在开发模式下，您可以将 <strong>Application</strong> 作为普通的 <strong>Java</strong> 应用程序在 <strong>IDE</strong> 中运行，并查看 <strong>Zeppelin notebook</strong> 中的结果。</p>
+<p><strong>org.apache.zeppelin.helium.ZeppelinApplicationDevServer</strong> 可以在开发模式下运行 <strong>Zeppelin Application</strong> 。</p>
+<pre><code>// entry point for development mode
+public static void main(String[] args) throws Exception {
+
+  // add resources for development mode
+  LocalResourcePool pool = new LocalResourcePool(&quot;dev&quot;);
+  pool.put(&quot;date&quot;, new Date());
+
+  // run application in devlopment mode with given resource
+  // in this case, Clock.class.getName() will be the application class name  
+  org.apache.zeppelin.helium.ZeppelinApplicationDevServer devServer = new org.apache.zeppelin.helium.ZeppelinApplicationDevServer(
+    Clock.class.getName(), pool.getAll());
+
+  // start development mode
+  devServer.start();
+  devServer.join();
+}
+</code></pre>
+
+<p>在 <strong>Zeppelin notebook</strong> 中，运行 <strong>%dev run</strong> 将连接到在开发模式下运行的应用程序。</p>
+<h2 id="package-file">Package file ( 包文件 )</h2>
+<p>软件包文件是一个 <strong>json</strong> 文件，提供有关应用程序的信息。 <strong>Json</strong> 文件包含以下信息</p>
+<pre><code>{
+  name : &quot;[organization].[name]&quot;,
+  description : &quot;Description&quot;,
+  artifact : &quot;groupId:artifactId:version&quot;,
+  className : &quot;your.package.name.YourApplicationClass&quot;,
+  resources : [
+    [&quot;resource.name&quot;, &quot;:resource.class.name&quot;],
+    [&quot;alternative.resource.name&quot;, &quot;:alternative.class.name&quot;]
+  ],
+  icon : &quot;&lt;i class=&quot;icon&quot;&gt;&lt;/i&gt;&quot;
+}
+</code></pre>
+
+<h3 id="name">name ( 名称 )</h3>
+<p><strong>Name</strong> 是 <strong>[group]  [name]</strong> 格式的字符串。 <strong>[group]</strong> 和 <strong>[name]</strong> 只允许 <strong>[A-Za-z0-9_]</strong> 。组通常是创建此应用程序的组织的名称。</p>
+<h3 id="description">description ( 描述 )</h3>
+<p>有关应用程序的简短描述。</p>
+<h3 id="artifact">artifact</h3>
+<p><strong>jar artifac</strong>t 的位置。 <strong>“groupId：artifactId：version”</strong> 将从 <strong>maven</strong> 仓库加载工件。如果本地文件系统中存在 <strong>jar</strong> ，则可以使用 <strong>absolute / relative</strong> 。</p>
+<p>例如</p>
+<p>当 <strong>artifact</strong> 存在于 <strong>Maven</strong> 存储库中时</p>
+<pre><code>artifact: &quot;org.apache.zeppelin:zeppelin-examples:0.6.0&quot;
+</code></pre>
+
+<p>当 <strong>artifact</strong> 存在于本地文件系统中时</p>
+<pre><code>artifact: &quot;zeppelin-example/target/zeppelin-example-0.6.0.jar&quot;
+</code></pre>
+
+<h3 id="classname">className ( 类名 )</h3>
+<p>入口点。扩展 <strong>org.apache.zeppelin.helium.Application</strong> 的类。</p>
+<h3 id="resources">resources ( 资源 )</h3>
+<p>二维数组，按名称或类名定义所需的资源。 <strong>Helium</strong> 应用程序启动器将比较 <strong>ResourcePool</strong> 中的资源与该字段中的信息，并在 <strong>ResourcePool</strong> 中提供所有必需资源时才建议应用程序。</p>
+<p>资源名称是一个字符串，它将与 <strong>ResourcePool</strong> 中的对象名称进行比较。 <strong>className</strong> 是一个前缀为“：”的字符串，它将与 <strong>ResourcePool</strong> 中对象的 <strong>className</strong> 进行比较。</p>
+<p>应用程序可能需要两个或更多资源。所需的资源可以在json数组中列出。例如，如果应用程序需要对象 “<strong>name1</strong>” ， “<strong>name2</strong>” 和 “<strong>className1</strong>” 类型的对象运行，则资源字段可以是</p>
+<pre><code>resources: [
+  [ &quot;name1&quot;, &quot;name2&quot;, &quot;:className1&quot;, ...]
+]
+</code></pre>
+
+<p>如果应用程序可以处理所需资源的替代组合，则可以列出替代集合。</p>
+<pre><code>resources: [
+  [ &quot;name&quot;, &quot;:className&quot;],
+  [ &quot;altName&quot;, &quot;:altClassName1&quot;],
+  ...
+]
+</code></pre>
+
+<p>更容易理解这个方案</p>
+<pre><code>resources: [
+   [ 'resource' AND 'resource' AND ... ] OR
+   [ 'resource' AND 'resource' AND ... ] OR
+   ...
+]
+</code></pre>
+
+<h3 id="icon">icon ( 图标 )</h3>
+<p>在应用程序按钮上使用的图标。此字段中的字符串将被呈现为 <strong>HTML</strong> 标记。</p>
+<p>例如</p>
+<pre><code>icon: &quot;&lt;i class='fa fa-clock-o'&gt;&lt;/i&gt;&quot;
+</code></pre>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/zeppelin-doc-zh/" target="_blank">apachecn/zeppelin-doc-zh</a></p>
+                  <p><iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a></p>
+                  <div style="text-align:center;margin:0 0 10.5px;"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:728px;height:90px"
+                             data-ad-client="ca-pub-3565452474788507"
+                             data-ad-slot="2543897000"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script></div>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'zeppelin-doc-zh',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../67/" title="Writing a new Visualization (Experimental) ( 编写新的可视化（实验） )" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                Writing a new Visualization (Experimental) ( 编写新的可视化（实验） )
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../69/" title="Contributing to Apache Zeppelin ( Code ) ( 向 Apache Zeppelin 贡献( 代码 ) )" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                Contributing to Apache Zeppelin ( Code ) ( 向 Apache Zeppelin 贡献( 代码 ) )
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.583bbe55.js"></script>
+      
+        
+        
+          
+          <script src="../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

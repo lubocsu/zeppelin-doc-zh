@@ -1,0 +1,2201 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Zeppelin 0.7.2 中文文档">
+      
+      
+        <link rel="canonical" href="http://zeppelin.apachecn.org/22/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>Cassandra CQL 解释器 - Zeppelin 0.7.2 中文文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4bb062e5de7b0bfc7e39b8d9fc44d5ca";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+    <!-- google webmaster -->
+    <meta name="google-site-verification" content="pyo9N70ZWyh8JB43bIu633mhxesJ1IcwWCZlM3jUfFo" />
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../#cassandra-cql" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://zeppelin.apachecn.org" title="Zeppelin 0.7.2 中文文档" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Zeppelin 0.7.2 中文文档
+              </span>
+              <span class="md-header-nav__topic">
+                Cassandra CQL 解释器
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/zeppelin-doc-zh/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      zeppelin-doc-zh
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://zeppelin.apachecn.org" title="Zeppelin 0.7.2 中文文档" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Zeppelin 0.7.2 中文文档
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/zeppelin-doc-zh/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      zeppelin-doc-zh
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Zeppelin 0.7.2 中文文档" class="md-nav__link">
+      Zeppelin 0.7.2 中文文档
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1/" title="快速入门" class="md-nav__link">
+      快速入门
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2/" title="什么是Apache Zeppelin?" class="md-nav__link">
+      什么是Apache Zeppelin?
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3/" title="安装" class="md-nav__link">
+      安装
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4/" title="配置" class="md-nav__link">
+      配置
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5/" title="探索Apache Zeppelin UI" class="md-nav__link">
+      探索Apache Zeppelin UI
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6/" title="教程" class="md-nav__link">
+      教程
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7/" title="动态表单" class="md-nav__link">
+      动态表单
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8/" title="发表你的段落" class="md-nav__link">
+      发表你的段落
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9/" title="自定义Zeppelin主页" class="md-nav__link">
+      自定义Zeppelin主页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10/" title="升级Zeppelin版本" class="md-nav__link">
+      升级Zeppelin版本
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11/" title="从源码编译" class="md-nav__link">
+      从源码编译
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12/" title="使用Flink和Spark Clusters安装Zeppelin教程" class="md-nav__link">
+      使用Flink和Spark Clusters安装Zeppelin教程
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13/" title="解释器" class="md-nav__link">
+      解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14/" title="概述" class="md-nav__link">
+      概述
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15/" title="解释器安装" class="md-nav__link">
+      解释器安装
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16/" title="解释器依赖管理" class="md-nav__link">
+      解释器依赖管理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../17/" title="解释器的模拟用户" class="md-nav__link">
+      解释器的模拟用户
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../18/" title="解释员执行Hook（实验）" class="md-nav__link">
+      解释员执行Hook（实验）
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../19/" title="Alluxio 解释器" class="md-nav__link">
+      Alluxio 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../20/" title="Beam 解释器" class="md-nav__link">
+      Beam 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../21/" title="BigQuery 解释器" class="md-nav__link">
+      BigQuery 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Cassandra CQL 解释器
+      </label>
+    
+    <a href="./" title="Cassandra CQL 解释器" class="md-nav__link md-nav__link--active">
+      Cassandra CQL 解释器
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cassandra" title="启用Cassandra解释器" class="md-nav__link">
+    启用Cassandra解释器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cassandra_1" title="使用Cassandra解释器" class="md-nav__link">
+    使用Cassandra解释器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="解释器命令" class="md-nav__link">
+    解释器命令
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cql" title="CQL语句" class="md-nav__link">
+    CQL语句
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="声明中的评论" class="md-nav__link">
+    声明中的评论
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="语法验证" class="md-nav__link">
+    语法验证
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="模式命令" class="md-nav__link">
+    模式命令
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="运行时参数" class="md-nav__link">
+    运行时参数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="支持准备声明" class="md-nav__link">
+    支持准备声明
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prepare" title="@prepare" class="md-nav__link">
+    @prepare
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind" title="@bind" class="md-nav__link">
+    @bind
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove_prepare" title="@remove_prepare" class="md-nav__link">
+    @remove_prepare
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="使用动态表单" class="md-nav__link">
+    使用动态表单
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" title="共享状态" class="md-nav__link">
+    共享状态
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="解释器配置" class="md-nav__link">
+    解释器配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="更改日志" class="md-nav__link">
+    更改日志
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="错误和联系人" class="md-nav__link">
+    错误和联系人
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../23/" title="Elasticsearch 解释器" class="md-nav__link">
+      Elasticsearch 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../24/" title="Flink 解释器" class="md-nav__link">
+      Flink 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../25/" title="Geode/Gemfire OQL 解释器" class="md-nav__link">
+      Geode/Gemfire OQL 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../26/" title="HBase Shell 解释器" class="md-nav__link">
+      HBase Shell 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../27/" title="HDFS文件系统 解释器" class="md-nav__link">
+      HDFS文件系统 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../28/" title="Hive 解释器" class="md-nav__link">
+      Hive 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../29/" title="Ignite 解释器" class="md-nav__link">
+      Ignite 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../30/" title="JDBC通用 解释器" class="md-nav__link">
+      JDBC通用 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../31/" title="Kylin 解释器" class="md-nav__link">
+      Kylin 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../32/" title="Lens 解释器" class="md-nav__link">
+      Lens 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../33/" title="Livy 解释器" class="md-nav__link">
+      Livy 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../34/" title="Markdown 解释器" class="md-nav__link">
+      Markdown 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../35/" title="Pig 解释器" class="md-nav__link">
+      Pig 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../36/" title="PostgreSQL, HAWQ 解释器" class="md-nav__link">
+      PostgreSQL, HAWQ 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../37/" title="Python 2＆3解释器" class="md-nav__link">
+      Python 2＆3解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../38/" title="R 解释器" class="md-nav__link">
+      R 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../39/" title="Scalding 解释器" class="md-nav__link">
+      Scalding 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../40/" title="Scio 解释器" class="md-nav__link">
+      Scio 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../41/" title="Shell 解释器" class="md-nav__link">
+      Shell 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../42/" title="Spark 解释器" class="md-nav__link">
+      Spark 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../43/" title="系统显示" class="md-nav__link">
+      系统显示
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../44/" title="系统基本显示" class="md-nav__link">
+      系统基本显示
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../45/" title="后端Angular API" class="md-nav__link">
+      后端Angular API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../46/" title="前端Angular API" class="md-nav__link">
+      前端Angular API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../47/" title="更多" class="md-nav__link">
+      更多
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../48/" title="笔记本存储" class="md-nav__link">
+      笔记本存储
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../49/" title="REST API" class="md-nav__link">
+      REST API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../50/" title="解释器 API" class="md-nav__link">
+      解释器 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../51/" title="笔记本 API" class="md-nav__link">
+      笔记本 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../52/" title="笔记本资源 API" class="md-nav__link">
+      笔记本资源 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../53/" title="配置 API" class="md-nav__link">
+      配置 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../54/" title="凭据 API" class="md-nav__link">
+      凭据 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../55/" title="Helium API" class="md-nav__link">
+      Helium API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../56/" title="Security ( 安全 )" class="md-nav__link">
+      Security ( 安全 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../57/" title="Shiro 授权" class="md-nav__link">
+      Shiro 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../58/" title="笔记本 授权" class="md-nav__link">
+      笔记本 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../59/" title="数据源 授权" class="md-nav__link">
+      数据源 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../60/" title="Helium 授权" class="md-nav__link">
+      Helium 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../61/" title="Advanced ( 高级 )" class="md-nav__link">
+      Advanced ( 高级 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../62/" title="Zeppelin on Vagrant VM ( Zeppelin 在 Vagrant 虚拟机上 )" class="md-nav__link">
+      Zeppelin on Vagrant VM ( Zeppelin 在 Vagrant 虚拟机上 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../63/" title="Zeppelin on Spark Cluster Mode( Spark 集群模式下的 Zeppelin )" class="md-nav__link">
+      Zeppelin on Spark Cluster Mode( Spark 集群模式下的 Zeppelin )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../64/" title="Zeppelin on CDH ( Zeppelin 在 CDH 上 )" class="md-nav__link">
+      Zeppelin on CDH ( Zeppelin 在 CDH 上 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../65/" title="Contibute ( 贡献 )" class="md-nav__link">
+      Contibute ( 贡献 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../66/" title="Writing a New Interpreter ( 写一个新的解释器 )" class="md-nav__link">
+      Writing a New Interpreter ( 写一个新的解释器 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../67/" title="Writing a new Visualization (Experimental) ( 编写新的可视化（实验） )" class="md-nav__link">
+      Writing a new Visualization (Experimental) ( 编写新的可视化（实验） )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../68/" title="Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) )" class="md-nav__link">
+      Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../69/" title="Contributing to Apache Zeppelin ( Code ) ( 向 Apache Zeppelin 贡献( 代码 ) )" class="md-nav__link">
+      Contributing to Apache Zeppelin ( Code ) ( 向 Apache Zeppelin 贡献( 代码 ) )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../70/" title="Contributing to Apache Zeppelin ( Website ) ( 向 Apache Zeppelin 贡献(website) )" class="md-nav__link">
+      Contributing to Apache Zeppelin ( Website ) ( 向 Apache Zeppelin 贡献(website) )
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cassandra" title="启用Cassandra解释器" class="md-nav__link">
+    启用Cassandra解释器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cassandra_1" title="使用Cassandra解释器" class="md-nav__link">
+    使用Cassandra解释器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="解释器命令" class="md-nav__link">
+    解释器命令
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cql" title="CQL语句" class="md-nav__link">
+    CQL语句
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="声明中的评论" class="md-nav__link">
+    声明中的评论
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="语法验证" class="md-nav__link">
+    语法验证
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="模式命令" class="md-nav__link">
+    模式命令
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="运行时参数" class="md-nav__link">
+    运行时参数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="支持准备声明" class="md-nav__link">
+    支持准备声明
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prepare" title="@prepare" class="md-nav__link">
+    @prepare
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind" title="@bind" class="md-nav__link">
+    @bind
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove_prepare" title="@remove_prepare" class="md-nav__link">
+    @remove_prepare
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="使用动态表单" class="md-nav__link">
+    使用动态表单
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" title="共享状态" class="md-nav__link">
+    共享状态
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="解释器配置" class="md-nav__link">
+    解释器配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="更改日志" class="md-nav__link">
+    更改日志
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="错误和联系人" class="md-nav__link">
+    错误和联系人
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/zeppelin-doc-zh/edit/master/docs/22.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="cassandra-cql">Cassandra CQL 解释器</h1>
+<p>原文链接 : <a href="http://zeppelin.apache.org/docs/0.7.2/interpreter/cassandra.html">http://zeppelin.apache.org/docs/0.7.2/interpreter/cassandra.html</a></p>
+<p>译文链接 : <a href="http://www.apache.wiki/pages/viewpage.action?pageId=10030777">http://www.apache.wiki/pages/viewpage.action?pageId=10030777</a></p>
+<p>贡献者 : <a href="/display/~jiangzhonglian">片刻</a> <a href="/display/~apachecn">ApacheCN</a> <a href="/display/~apachechina">Apache中文网</a></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%cassandra</td>
+<td>CassandraInterpreter</td>
+<td>为Apache Cassandra CQL查询语言提供解释器</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cassandra">启用Cassandra解释器</h2>
+<p>在笔记本中，要启用<strong>Cassandra</strong>解释器，请单击<strong>Gear</strong>图标并选择<strong>Cassandra。</strong></p>
+<p><img alt="" src="../img/8e339823f17b502c120b1ddfd58880aa.jpg" /></p>
+<h2 id="cassandra_1">使用Cassandra解释器</h2>
+<p>在段落中，使用<strong><em>％cassandra</em></strong>来选择<strong>Cassandra</strong>解释器，然后输入所有命令。</p>
+<p>要访问交互式帮助，请键入<strong>HELP;</strong></p>
+<p><img alt="" src="../img/2f52365cf6707fb02a3594125d5acd8b.jpg" /></p>
+<h2 id="_1">解释器命令</h2>
+<p>所述Cassandra解释器接受下列命令</p>
+<table>
+<thead>
+<tr>
+<th>Command Type</th>
+<th>Command Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Help command</td>
+<td>HELP</td>
+<td>显示交互式帮助菜单</td>
+</tr>
+<tr>
+<td>Schema commands</td>
+<td>DESCRIBE KEYSPACE, DESCRIBE CLUSTER, DESCRIBE TABLES ...</td>
+<td>描述Cassandra模式的自定义命令</td>
+</tr>
+<tr>
+<td>Option commands</td>
+<td>@consistency, @retryPolicy, @fetchSize ...</td>
+<td>将运行时选项注入段落中的所有语句</td>
+</tr>
+<tr>
+<td>Prepared statement commands</td>
+<td>@prepare, @bind, @remove_prepared</td>
+<td>让您注册一个准备好的命令，并通过注入绑定值重新使用它</td>
+</tr>
+<tr>
+<td>Native CQL statements</td>
+<td>All CQL-compatible statements (SELECT, INSERT, CREATE ...)</td>
+<td>所有CQL语句都直接针对Cassandra服务器执行</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cql">CQL语句</h2>
+<p>该解释器与Cassandra支持的任何CQL语句兼容。例如：</p>
+<pre><code>INSERT INTO users(login,name) VALUES('jdoe','John DOE');
+SELECT * FROM users WHERE login='jdoe'; 
+</code></pre>
+
+<p>除了以下特殊命令之外，每个语句都应以分号（<strong>;</strong>）分隔：</p>
+<ol>
+<li>@准备</li>
+<li>@bind</li>
+<li>@remove_prepare</li>
+<li>@一致性</li>
+<li>@serialConsistency</li>
+<li>@timestamp</li>
+<li>@retryPolicy</li>
+<li>@fetchSize</li>
+<li>@请求超时</li>
+</ol>
+<p>只要它们以分号分隔，就支持多行语句以及同一行上的多个语句。例如：</p>
+<pre><code>USE spark_demo; 
+
+SELECT * FROM albums_by_country LIMIT 1; SELECT * FROM countries LIMIT 1; 
+
+SELECT *
+FROM artists
+WHERE login='jlennon'; 
+</code></pre>
+
+<p>支持批处理语句，可以跨多行，以及DDL（CREATE / ALTER / DROP）语句：</p>
+<pre><code>BEGIN BATCH
+    INSERT INTO users(login,name) VALUES('jdoe','John DOE');
+    INSERT INTO users_preferences(login,account_type) VALUES('jdoe','BASIC');
+APPLY BATCH; 
+
+CREATE TABLE IF NOT EXISTS test(
+    key int PRIMARY KEY,
+    value text
+); 
+</code></pre>
+
+<p>CQL语句不<strong>区分大小写</strong>（列名和值除外）。这意味着以下语句是等同和有效的：</p>
+<pre><code>INSERT INTO users(login,name) VALUES('jdoe','John DOE');
+Insert into users(login,name) vAlues('hsue','Helen SUE'); 
+</code></pre>
+
+<p>所有CQL语句和版本的完整列表如下：</p>
+<table>
+<thead>
+<tr>
+<th>Cassandra版本</th>
+<th>文件链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>3.X</strong></td>
+<td><a href="http://docs.datastax.com/en/cql/3.3/cql/cqlIntro.html">http://docs.datastax.com/en/cql/3.3/cql/cqlIntro.html</a></td>
+</tr>
+<tr>
+<td><strong>2.2</strong></td>
+<td><a href="http://docs.datastax.com/en/cql/3.3/cql/cqlIntro.html">http://docs.datastax.com/en/cql/3.3/cql/cqlIntro.html</a></td>
+</tr>
+<tr>
+<td><strong>2.1＆2.0</strong></td>
+<td><a href="http://docs.datastax.com/en/cql/3.1/cql/cql_intro_c.html">http://docs.datastax.com/en/cql/3.1/cql/cql <em>intro</em> c.html</a></td>
+</tr>
+<tr>
+<td><strong>1.2</strong></td>
+<td><a href="http://docs.datastax.com/en/cql/3.0/cql/aboutCQL.html">http://docs.datastax.com/en/cql/3.0/cql/aboutCQL.html</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">声明中的评论</h2>
+<p>可以在语句之间添加注释。单行注释以<strong>哈希符号</strong>（＃）或<strong>双斜杠</strong>（//）开头。多行注释在/ <strong>和</strong> /之间。例如：</p>
+<pre><code>#Single line comment style 1
+INSERT INTO users(login,name) VALUES('jdoe','John DOE');
+
+//Single line comment style 2
+
+/**
+ Multi line
+ comments
+ **/
+Insert into users(login,name) vAlues('hsue','Helen SUE'); 
+</code></pre>
+
+<h2 id="_3">语法验证</h2>
+<p>解释器随附了一个内置的语法验证器。此验证器仅检查基本语法错误。</p>
+<p>所有与CQL相关的语法验证都直接<strong>委托</strong>给<strong>Cassandra</strong></p>
+<p>大多数情况下，语法错误是由于语句或<strong>打字错误</strong>之间<strong>的分号丢失</strong>造成的。</p>
+<h2 id="_4">模式命令</h2>
+<p>为了使模式发现更容易和更具交互性，支持以下命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DESCRIBE CLUSTER;</strong></td>
+<td>显示当前的群集名称及其分区</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE KEYSPACES;</strong></td>
+<td>列出集群中的所有现有密钥空间及其配置（复制因子，持久写入...）</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE TABLES;</strong></td>
+<td>列出集群中的所有现有密钥空间，并列出所有表的名称</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE TYPES;</strong></td>
+<td>列出集群中的所有现有密钥空间，并列出所有用户定义的类型名称</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE FUNCTIONS;</strong></td>
+<td>列出集群中的所有现有键空间，并列出所有函数的名称</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE AGGREGATES;</strong></td>
+<td>列出集群中的所有现有密钥空间，并列出所有聚合名称</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE MATERIALIZED VIEWS;</strong></td>
+<td>列出集群中的所有现有密钥空间，并列出所有实例化视图名称</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE KEYSPACE &lt;keyspace_name&gt;;_</strong></td>
+<td>描述给定的密钥空间配置及其所有表的详细信息（名称，列，...）</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE TABLE (&lt;keyspacename&gt;).&lt;table_name&gt;;_</strong></td>
+<td>描述给定的表。如果没有提供密钥空间，则使用当前登录的密钥空间。如果没有登录密钥空间，则使用默认系统密钥空间。如果没有找到表，会出现错误信息</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE TYPE (&lt;keyspacename&gt;).&lt;type_name&gt;;_</strong></td>
+<td>描述给定类型（UDT）。如果没有提供密钥空间，则使用当前登录的密钥空间。如果没有登录密钥空间，则使用默认系统密钥空间。如果没有找到类型，会出现错误信息</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE FUNCTION (&lt;keyspacename&gt;).&lt;function_name&gt;;_</strong></td>
+<td>描述给定的功能。如果没有提供密钥空间，则使用当前登录的密钥空间。如果没有登录密钥空间，则使用默认系统密钥空间。如果没有找到功能，则会出现错误信息</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE AGGREGATE (&lt;keyspacename&gt;).&lt;aggregate_name&gt;;_</strong></td>
+<td>描述给定的聚合。如果没有提供密钥空间，则使用当前登录的密钥空间。如果没有登录密钥空间，则使用默认系统密钥空间。如果没有找到聚合，则会出现错误消息</td>
+</tr>
+<tr>
+<td><strong>DESCRIBE MATERIALIZED VIEW (&lt;keyspacename&gt;).&lt;view_name&gt;;</strong></td>
+<td>描述给定的视图。如果没有提供密钥空间，则使用当前登录的密钥空间。如果没有登录密钥空间，则使用默认系统密钥空间。如果没有找到任何视图，会出现错误信息</td>
+</tr>
+</tbody>
+</table>
+<p>模式对象（集群，密钥空间，表，类型，功能和聚合）以表格格式显示。左上角有一个下拉菜单来展开对象细节。右上角的菜单显示“图标”图标。</p>
+<p><img alt="" src="../img/2eb00af31df40736e858b2b28908882c.jpg" /></p>
+<h2 id="_5">运行时参数</h2>
+<p>有时您希望能够将运行时查询参数传递给您的语句。</p>
+<p>这些参数不是CQL规范的一部分，而是特定于解释器。</p>
+<p>以下是所有参数的列表：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>语法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consistency Level</td>
+<td><strong>@consistency=<em>value</em></strong></td>
+<td>将给定的一致性级别应用于段落中的所有查询</td>
+</tr>
+<tr>
+<td>Serial Consistency Level</td>
+<td><strong>@serialConsistency=<em>value</em></strong></td>
+<td>将给定的串行一致性级别应用于段落中的所有查询</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td><strong>@timestamp=<em>long value</em></strong></td>
+<td>将给定的时间戳应用于段落中的所有查询。请注意，直接在CQL语句中传递的时间戳值将覆盖此值</td>
+</tr>
+<tr>
+<td>Retry Policy</td>
+<td><strong>@retryPolicy=<em>value</em></strong></td>
+<td>将给定的重试策略应用于段落中的所有查询</td>
+</tr>
+<tr>
+<td>Fetch Size</td>
+<td><strong>@fetchSize=<em>integer value</em></strong></td>
+<td>将给定的提取大小应用于段落中的所有查询</td>
+</tr>
+<tr>
+<td>Request Time Out</td>
+<td><strong>@requestTimeOut=<em>integer value</em></strong></td>
+<td>将给定的请求超时<strong>以毫秒</strong>为<strong>单位应用于段落</strong>中的所有查询</td>
+</tr>
+</tbody>
+</table>
+<p>一些参数仅接受限制值：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>可能的值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consistency Level</td>
+<td><strong>ALL, ANY, ONE, TWO, THREE, QUORUM, LOCAL_ONE, LOCAL_QUORUM, EACH_QUORUM_</strong></td>
+</tr>
+<tr>
+<td>Serial Consistency Level</td>
+<td><strong>SERIAL, LOCALSERIAL</strong></td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>Any long value</td>
+</tr>
+<tr>
+<td>Retry Policy</td>
+<td><strong>DEFAULT, DOWNGRADING_CONSISTENCY, FALLTHROUGH, LOGGING_DEFAULT, LOGGING_DOWNGRADING, LOGGING_FALLTHROUGH</strong></td>
+</tr>
+<tr>
+<td>Fetch Size</td>
+<td>Any integer value</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>请注意，您应该<strong>不</strong>加分号（<strong>;</strong>在每个参数语句的结束）</p>
+</blockquote>
+<p>一些例子：</p>
+<pre><code>CREATE TABLE IF NOT EXISTS spark_demo.ts(
+    key int PRIMARY KEY,
+    value text
+);
+TRUNCATE spark_demo.ts; 
+
+// Timestamp in the past
+@timestamp=10 
+
+// Force timestamp directly in the first insert
+INSERT INTO spark_demo.ts(key,value) VALUES(1,'first insert') USING TIMESTAMP 100; 
+
+// Select some data to make the clock turn
+SELECT * FROM spark_demo.albums LIMIT 100; 
+
+// Now insert using the timestamp parameter set at the beginning(10)
+INSERT INTO spark_demo.ts(key,value) VALUES(1,'second insert'); 
+
+// Check for the result. You should see 'first insert'
+SELECT value FROM spark_demo.ts WHERE key=1; 
+</code></pre>
+
+<p>有关查询参数的一些注释：</p>
+<blockquote>
+<ol>
+<li><strong>许多</strong>查询参数可以在同一段落中设置</li>
+<li>如果<strong>相同的</strong>查询参数用不同的值设置很多时间，则解释器仅考虑第一个值</li>
+<li>每个查询参数都适用于同一<strong>段落</strong>中的<strong>所有CQL语句</strong>，除非您使用纯CQL文本覆盖选项（如强制使用USING子句的时间戳）</li>
+<li>关于CQL语句的每个查询参数的顺序并不重要</li>
+</ol>
+</blockquote>
+<h2 id="_6">支持准备声明</h2>
+<p>出于性能原因，最好先准备语句，然后通过提供绑定值重用它们。</p>
+<p>此解释器提供3个命令来处理准备和绑定的语句：</p>
+<ol>
+<li><strong>@prepare</strong></li>
+<li><strong>@bind</strong></li>
+<li><strong>@remove_prepared</strong></li>
+</ol>
+<p>例：</p>
+<pre><code>@prepare[statement-name]=... 
+
+@bind[statement-name]=’text’, 1223, ’2015-07-30 12:00:01’, null, true, [‘list_item1’, ’list_item2’] 
+
+@bind[statement-name-with-no-bound-value] 
+
+@remove_prepare[statement-name] 
+</code></pre>
+
+<h4 id="prepare">@prepare</h4>
+<p>您可以使用语法_“@prepare [statement-name] = SELECT ...”_来创建一个准备好的语句。该_语句名_是<strong>强制性的</strong>，因为翻译准备与Java驱动程序给定的语句，并在保存生成的准备语句<strong>内部哈希表</strong>，使用所提供的_语句名_作为搜索关键字。</p>
+<blockquote>
+<p>请注意，内部准备的语句映射与<strong>所有笔记本</strong>和<strong>所有段落</strong>共享，因为<strong>Cassandra</strong>只有一个解释器实例</p>
+<p>如果解释器遇到<strong>相同的<strong><em>*<em>statement-name</em></em></strong>*（key）的<strong><em>*许多</em>* @prepare，那么只有</strong>第一个</strong>语句才会被考虑。</p>
+</blockquote>
+<p>例：</p>
+<pre><code>@prepare[select]=SELECT * FROM spark_demo.albums LIMIT ? 
+
+@prepare[select]=SELECT * FROM spark_demo.artists LIMIT ?  
+</code></pre>
+
+<p>对于上述示例，准备好的语句是<code>SELECT * FROM spark_demo.albums LIMIT ?</code>。`SELECT * FROM spark_demo.artists LIMIT？被忽略，因为已准备好的语句映射中已经存在一个条目，带有key select。</p>
+<p>在<strong>Zeppelin</strong>的背景下，笔记本可以定期执行，因此有必要<strong>避免重新准备许多时间相同的声明（被认为是反模式）</strong>。</p>
+<h4 id="bind"><a href="http://zeppelin.apache.org/docs/0.7.1/interpreter/cassandra.html#bind">@bind</a></h4>
+<p>一旦准备好声明（可能在分开的笔记本/段落中）。您可以将值绑定到它：</p>
+<pre><code>@bind[select_first]=10 
+</code></pre>
+
+<p>绑定值不是@bind语句的<strong>强制</strong>值。但是，如果您提供绑定值，则需要遵守一些语法： </p>
+<ul>
+<li>字符串值应包含在简单引号（'）之间</li>
+<li>日期值应包含在简单引号（'）之间，并遵循格式：<ol>
+<li>yyyy-MM-dd HH：MM：ss</li>
+<li>yyyy-MM-dd HH：MM：ss.SSS</li>
+</ol>
+</li>
+<li><strong>null</strong>按原样解析</li>
+<li><strong>布尔值</strong>（true | false）按原样解析</li>
+<li>集合值必须遵循<strong><a href="http://docs.datastax.com/en/cql/3.1/cql/cql_using/use_collections_c.html">标准的CQL语法</a></strong>：<ul>
+<li>列表：['list <em>item1'，'list</em> item2'，...]</li>
+<li>设置：{'set <em>item1'，'set</em> item2'，...}</li>
+<li>map：{'key1'：'val1'，'key2'：'val2'，...}</li>
+</ul>
+</li>
+<li><strong>元组</strong>值应该在括号之间（见<strong><a href="http://docs.datastax.com/en/cql/3.1/cql/cql_reference/tupleType.html">元组CQL语法</a></strong>）：（'text'，123，true）</li>
+<li><strong>udt</strong>值应该在括号之间（见<strong><a href="http://docs.datastax.com/en/cql/3.1/cql/cql_using/cqlUseUDT.html">UDT CQL语法</a></strong>）：{stree <em>name：'Beverly Hills'，number：104，邮编</em>：90020，state：'California'，...}</li>
+</ul>
+<blockquote>
+<p>可以在批处理中使用@bind语句：</p>
+<p><code>BEGIN BATCH
+   @bind[insert_user]='jdoe','John DOE'
+   UPDATE users SET age = 27 WHERE login='hsue';
+APPLY BATCH;</code></p>
+</blockquote>
+<h4 id="remove_prepare"><a href="http://zeppelin.apache.org/docs/0.7.1/interpreter/cassandra.html#remove_prepare">@remove_prepare</a></h4>
+<pre><code>为了避免准备好的语句永远保留在准备好的语句映射中，您可以使用 @remove_prepare [statement-name]语法将其删除。删除不存在的准备语句不会产生错误。
+</code></pre>
+
+<h2 id="_7">使用动态表单</h2>
+<p>而不是对CQL查询进行硬编码，可以使用<strong><a href="http://zeppelin.apache.org/docs/0.6.0-SNAPSHOT/manual/dynamicform.html">Zeppelin动态表单</a></strong>语法注入简单的值或多个选择表单。</p>
+<p>仍然支持绑定输入文本和选择表单的旧式胡须语法（<strong>{{}}</strong>），但不推荐使用，并在将来的版本中将其删除。</p>
+<blockquote>
+<p><strong>传统</strong> 简单参数的语法是：<strong>{{input_Label = default value}}</strong>。默认值是强制性的，因为第一次执行该段落，我们在呈现表单之前启动CQL查询，因此应提供至少一个值。</p>
+<p>多选择参数的语法是：<strong>{{input_Label = value1 | value2 | ... | valueN}}</strong>。默认情况下，第一次执行该段落时，首选用于CQL查询。</p>
+</blockquote>
+<p>例：</p>
+<pre><code>#Secondary index on performer style 
+SELECT name, country, performer 
+FROM spark_demo.performers 
+WHERE name='${performer=Sheryl Crow|Doof|Fanfarlo|Los Paranoia}' 
+AND styles CONTAINS '${style=Rock}';  
+</code></pre>
+
+<p>在上面的例子中，第一个CQL查询将执行为_performer ='Sheryl Crow'AND style ='Rock'_。对于后续查询，您可以使用表单直接更改值。</p>
+<blockquote>
+<p>请注意，我们在简单引号（<strong>'</strong>）之间附带了<strong>$ {}</strong>块，因为Cassandra希望有一个String。我们也可以使用<strong>$ {style ='Rock'}</strong>语法，但这次，表单上显示的值是<strong><em>“Rock”</em></strong>而不是<strong><em>Rock</em></strong>。</p>
+</blockquote>
+<p>也可以使用动态表单来<strong>准备语句</strong>：</p>
+<pre><code>@bind[select]=='${performer=Sheryl Crow|Doof|Fanfarlo|Los Paranoia}', '${style=Rock}' 
+</code></pre>
+
+<h2 id="_8">共享状态</h2>
+<p>可以并行执行许多段落。但是，在后端，我们仍然使用同步查询。 只有当有可能返回值时，_异步执行_才是可能<code>Future</code>的<code>InterpreterResult</code>。这可能是<strong>Zeppelin</strong>项目的一个有趣的建议。</p>
+<p>最近，<strong>Zeppelin</strong>允许您选择解释员的隔离级别（请参阅<strong><a href="http://zeppelin.apache.org/docs/0.6.0-SNAPSHOT/manual/interpreters.html">解释器绑定模式</a></strong>）。</p>
+<p>长篇小说，你有3个可用的绑定：</p>
+<ul>
+<li><strong>shared</strong>：<em>相同的JVM_和所有注释的_相同的解释器实例</em> </li>
+<li><strong>范围</strong>：<em>相同的JVM_但_不同的解释器实例</em>，每个音符一个</li>
+<li><strong>隔离</strong>：<em>不同的JVM_运行_单个解释器实例</em>，每个音符一个JVM</li>
+</ul>
+<p>使用<strong>共享</strong>绑定，<strong>所有</strong>注释和段落<code>com.datastax.driver.core.Session</code>都使用相同的对象。因此，如果您使用<strong>USE <strong><em>*<em>密钥空间名称</em></em></strong>* ; </strong>声明登录到一个密钥空间，它会更改密钥空间 <strong>所有当前用户</strong>的的<strong>卡桑德拉</strong>解释，因为我们只能创造1个％的实例对象<strong>卡桑德拉</strong>解释。    <code>com.datastax.driver.core.Session</code>  </p>
+<p>同样的说法也适用于<strong>准备好的语句哈希映射</strong>，它由<strong>所有</strong>使用<strong>Cassandra</strong>解释器的实例共享。</p>
+<p>当使用<strong>作用域</strong>绑定时，在_同一个JVM中，_ <strong>Zeppelin</strong>将创建Cassandra解释器的多个实例，从而创建多个<code>com.datastax.driver.core.Session</code>对象。<strong>小心使用这种绑定的资源和内存使用！</strong></p>
+<p>所述<strong>分离的</strong>模式是最极端的，并且将创建许多JVM / <code>com.datastax.driver.core.Session</code>因为有不同的笔记对象。</p>
+<h2 id="_9">解释器配置</h2>
+<p>要配置<strong>Cassandra</strong>解释器，请转到<strong>解释器</strong>菜单，向下滚动以更改参数。该<strong>卡珊德拉</strong>解释器使用的是官方<strong><a href="https://github.com/datastax/java-driver">卡桑德拉Java驱动程序</a></strong>和大多数参数都用于配置Java驱动程序</p>
+<p>以下是配置参数及其默认值。</p>
+<table>
+<thead>
+<tr>
+<th>属性名称</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cassandra.cluster</td>
+<td>要连接的Cassandra群集的名称</td>
+<td>Test Cluster</td>
+</tr>
+<tr>
+<td>cassandra.compression.protocol</td>
+<td>在线压缩 可能的值为：NONE，SNAPPY，LZ4</td>
+<td>NONE</td>
+</tr>
+<tr>
+<td>cassandra.credentials.username</td>
+<td>如果启用安全性，请提供登录</td>
+<td>none</td>
+</tr>
+<tr>
+<td>cassandra.credentials.password</td>
+<td>如果启用安全性，请提供密码</td>
+<td>none</td>
+</tr>
+<tr>
+<td>cassandra.hosts</td>
+<td>逗号分隔Cassandra主机（DNS名称或IP地址）。 </td>
+<td></td>
+</tr>
+<tr>
+<td>例如：'192.168.0.12，node2，node3'</td>
+<td>localhost</td>
+<td></td>
+</tr>
+<tr>
+<td>cassandra.interpreter.parallelism</td>
+<td>可执行的并发段数（查询块）数</td>
+<td>10</td>
+</tr>
+<tr>
+<td>cassandra.keyspace</td>
+<td>要连接的默认键盘空间。<strong>强烈建议让默认值在表名前加上所有查询中的实际键空格</strong></td>
+<td>system</td>
+</tr>
+<tr>
+<td>cassandra.load.balancing.policy</td>
+<td>负载均衡策略。Default = <em>new TokenAwarePolicy(new DCAwareRoundRobinPolicy())</em>  要指定您自己的策略，请提供您的策略的<strong>完全限定类名（FQCN）</strong>。在运行时，解释器将使用<strong>Class.forName（FQCN）</strong>实例化策略， </td>
+<td>DEFAULT</td>
+</tr>
+<tr>
+<td>cassandra.max.schema.agreement.wait.second</td>
+<td>Cassandra max模式协议等待第二</td>
+<td>10</td>
+</tr>
+<tr>
+<td>cassandra.pooling.core.connection.per.host.local</td>
+<td>协议V2及以下default = 2.协议V3及以上default = 1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>cassandra.pooling.core.connection.per.host.remote</td>
+<td>协议V2及以下default = 1.协议V3及以上default = 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>cassandra.pooling.heartbeat.interval.seconds</td>
+<td>卡桑德拉泳池心跳间隔（秒）</td>
+<td>30</td>
+</tr>
+<tr>
+<td>cassandra.pooling.idle.timeout.seconds</td>
+<td>Cassandra空闲时间在几秒钟内</td>
+<td>120</td>
+</tr>
+<tr>
+<td>cassandra.pooling.max.connection.per.host.local</td>
+<td>Protocol V2及以下default = 8.协议V3及以上default = 1</td>
+<td>8</td>
+</tr>
+<tr>
+<td>cassandra.pooling.max.connection.per.host.remote</td>
+<td>协议V2及以下default = 2.协议V3及以上default = 1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>cassandra.pooling.max.request.per.connection.local</td>
+<td>协议V2及以下默认值= 128.协议V3及以上默认值= 1024</td>
+<td>128</td>
+</tr>
+<tr>
+<td>cassandra.pooling.max.request.per.connection.remote</td>
+<td>协议V2及以下默认值= 128.协议V3及以上默认值= 256</td>
+<td>128</td>
+</tr>
+<tr>
+<td>cassandra.pooling.new.connection.threshold.local</td>
+<td>协议V2及以下默认值= 100.协议V3及以上默认= 800</td>
+<td>100</td>
+</tr>
+<tr>
+<td>cassandra.pooling.new.connection.threshold.remote</td>
+<td>协议V2及以下默认值= 100.协议V3及以上default = 200</td>
+<td>100</td>
+</tr>
+<tr>
+<td>cassandra.pooling.pool.timeout.millisecs</td>
+<td>Cassandra游泳池以毫秒为单位超时</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>cassandra.protocol.version</td>
+<td>Cassandra二进制协议版本</td>
+<td>4</td>
+</tr>
+<tr>
+<td>cassandra.query.default.consistency</td>
+<td>Cassandra查询默认一致性级别 </td>
+<td></td>
+</tr>
+<tr>
+<td>可用值：ONE，TWO，THREE，QUORUM，LOCAL <em>ONE，LOCAL</em> QUORUM，EACH <em>QUORUM，ALL</em></td>
+<td>ONE</td>
+<td></td>
+</tr>
+<tr>
+<td>cassandra.query.default.fetchSize</td>
+<td>Cassandra查询默认提取大小</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>cassandra.query.default.serial.consistency</td>
+<td>Cassandra查询默认串行一致性级别 </td>
+<td></td>
+</tr>
+<tr>
+<td>可用值：SERIAL，LOCALSERIAL</td>
+<td>SERIAL</td>
+<td></td>
+</tr>
+<tr>
+<td>cassandra.reconnection.policy</td>
+<td>Cassandra重新连接政策。Default = new ExponentialReconnectionPolicy(1000, 10 * 60 * 1000) 要指定自己的策略，请提供策略的<strong>完全限定类名（FQCN）</strong>。在运行时，解释器将使用<strong>Class.forName（FQCN）</strong>实例化策略， </td>
+<td>DEFAULT</td>
+</tr>
+<tr>
+<td>cassandra.retry.policy</td>
+<td>Cassandra重试政策 Default = DefaultRetryPolicy.INSTANCE要指定您自己的策略，请提供您的策略的<strong>完全限定类名（FQCN）</strong>。在运行时，解释器将使用<strong>Class.forName（FQCN）</strong>实例化策略， </td>
+<td>DEFAULT</td>
+</tr>
+<tr>
+<td>cassandra.socket.connection.timeout.millisecs</td>
+<td>Cassandra套接字默认连接超时（毫秒）</td>
+<td>500</td>
+</tr>
+<tr>
+<td>cassandra.socket.read.timeout.millisecs</td>
+<td>Cassandra套接字以毫秒为单位读取超时</td>
+<td>12000</td>
+</tr>
+<tr>
+<td>cassandra.socket.tcp.no_delay</td>
+<td>Cassandra套接字TCP没有延迟</td>
+<td>true</td>
+</tr>
+<tr>
+<td>cassandra.speculative.execution.policy</td>
+<td>Cassandra投机执行政策 Default = NoSpeculativeExecutionPolicy.INSTANCE要指定您自己的策略，请提供策略的<strong>完全限定类名（FQCN）</strong>。在运行时，解释器将使用<strong>Class.forName（FQCN）</strong>实例化策略。</td>
+<td>DEFAULT</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_10">更改日志</h2>
+<p><strong>3.0 </strong><em>（Zeppelin 0.7.1）</em>：</p>
+<ul>
+<li>更新文档</li>
+<li>更新交互式文档</li>
+<li>添加对二进制协议<strong>V4的</strong>支持</li>
+<li>实现新的<code>@requestTimeOut</code>运行时选项</li>
+<li>将Java驱动程序版本升级到<strong>3.0.1</strong></li>
+<li>允许解释器在使用FormType.SIMPLE时以编程方式添加动态表单</li>
+<li>允许动态窗体使用默认的Zeppelin语法</li>
+<li>在FallThroughPolicy上修正打字错误</li>
+<li>在创建动态表单之前，请先查看AngularObjectRegistry中的数据</li>
+<li>添加缺少的<code>ALTER</code>语句支持</li>
+</ul>
+<p><strong>2.0 </strong><em>（Zeppelin 0.7.1）</em>：</p>
+<ul>
+<li>更新帮助菜单并添加更改日志</li>
+<li>添加对<strong>用户定义函数</strong>，<strong>用户定义的聚合</strong>和<strong>物化视图的支持</strong></li>
+<li>将Java驱动程序版本升级到<strong>3.0.0-rc1</strong></li>
+</ul>
+<p><strong>1.0 </strong><em>（Zeppelin 0.5.5-孵育）</em>：</p>
+<ul>
+<li>初始版本</li>
+</ul>
+<h2 id="_11">错误和联系人</h2>
+<p>如果您遇到这个解释器的错误，请在<strong><a href="https://twitter.com/doanduyhai">@doanduyhai</a></strong>创建一个<strong><a href="https://issues.apache.org/jira/browse/ZEPPELIN-382?jql=project%20%3D%20ZEPPELIN">JIRA</a></strong>票，并在Twitter上<strong><a href="https://twitter.com/doanduyhai">打我一下</a>。</strong></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/zeppelin-doc-zh/" target="_blank">apachecn/zeppelin-doc-zh</a></p>
+                  <p><iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a></p>
+                  <div style="text-align:center;margin:0 0 10.5px;"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:728px;height:90px"
+                             data-ad-client="ca-pub-3565452474788507"
+                             data-ad-slot="2543897000"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script></div>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'zeppelin-doc-zh',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../21/" title="BigQuery 解释器" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                BigQuery 解释器
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../23/" title="Elasticsearch 解释器" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                Elasticsearch 解释器
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.583bbe55.js"></script>
+      
+        
+        
+          
+          <script src="../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

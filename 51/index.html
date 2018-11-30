@@ -1,0 +1,2513 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Zeppelin 0.7.2 中文文档">
+      
+      
+        <link rel="canonical" href="http://zeppelin.apachecn.org/51/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>笔记本 API - Zeppelin 0.7.2 中文文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4bb062e5de7b0bfc7e39b8d9fc44d5ca";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+    <!-- google webmaster -->
+    <meta name="google-site-verification" content="pyo9N70ZWyh8JB43bIu633mhxesJ1IcwWCZlM3jUfFo" />
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../#api" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://zeppelin.apachecn.org" title="Zeppelin 0.7.2 中文文档" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Zeppelin 0.7.2 中文文档
+              </span>
+              <span class="md-header-nav__topic">
+                笔记本 API
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/zeppelin-doc-zh/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      zeppelin-doc-zh
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://zeppelin.apachecn.org" title="Zeppelin 0.7.2 中文文档" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Zeppelin 0.7.2 中文文档
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/zeppelin-doc-zh/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      zeppelin-doc-zh
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Zeppelin 0.7.2 中文文档" class="md-nav__link">
+      Zeppelin 0.7.2 中文文档
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1/" title="快速入门" class="md-nav__link">
+      快速入门
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2/" title="什么是Apache Zeppelin?" class="md-nav__link">
+      什么是Apache Zeppelin?
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3/" title="安装" class="md-nav__link">
+      安装
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4/" title="配置" class="md-nav__link">
+      配置
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5/" title="探索Apache Zeppelin UI" class="md-nav__link">
+      探索Apache Zeppelin UI
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6/" title="教程" class="md-nav__link">
+      教程
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7/" title="动态表单" class="md-nav__link">
+      动态表单
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8/" title="发表你的段落" class="md-nav__link">
+      发表你的段落
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9/" title="自定义Zeppelin主页" class="md-nav__link">
+      自定义Zeppelin主页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10/" title="升级Zeppelin版本" class="md-nav__link">
+      升级Zeppelin版本
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11/" title="从源码编译" class="md-nav__link">
+      从源码编译
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12/" title="使用Flink和Spark Clusters安装Zeppelin教程" class="md-nav__link">
+      使用Flink和Spark Clusters安装Zeppelin教程
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13/" title="解释器" class="md-nav__link">
+      解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14/" title="概述" class="md-nav__link">
+      概述
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15/" title="解释器安装" class="md-nav__link">
+      解释器安装
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16/" title="解释器依赖管理" class="md-nav__link">
+      解释器依赖管理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../17/" title="解释器的模拟用户" class="md-nav__link">
+      解释器的模拟用户
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../18/" title="解释员执行Hook（实验）" class="md-nav__link">
+      解释员执行Hook（实验）
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../19/" title="Alluxio 解释器" class="md-nav__link">
+      Alluxio 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../20/" title="Beam 解释器" class="md-nav__link">
+      Beam 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../21/" title="BigQuery 解释器" class="md-nav__link">
+      BigQuery 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../22/" title="Cassandra CQL 解释器" class="md-nav__link">
+      Cassandra CQL 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../23/" title="Elasticsearch 解释器" class="md-nav__link">
+      Elasticsearch 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../24/" title="Flink 解释器" class="md-nav__link">
+      Flink 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../25/" title="Geode/Gemfire OQL 解释器" class="md-nav__link">
+      Geode/Gemfire OQL 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../26/" title="HBase Shell 解释器" class="md-nav__link">
+      HBase Shell 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../27/" title="HDFS文件系统 解释器" class="md-nav__link">
+      HDFS文件系统 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../28/" title="Hive 解释器" class="md-nav__link">
+      Hive 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../29/" title="Ignite 解释器" class="md-nav__link">
+      Ignite 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../30/" title="JDBC通用 解释器" class="md-nav__link">
+      JDBC通用 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../31/" title="Kylin 解释器" class="md-nav__link">
+      Kylin 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../32/" title="Lens 解释器" class="md-nav__link">
+      Lens 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../33/" title="Livy 解释器" class="md-nav__link">
+      Livy 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../34/" title="Markdown 解释器" class="md-nav__link">
+      Markdown 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../35/" title="Pig 解释器" class="md-nav__link">
+      Pig 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../36/" title="PostgreSQL, HAWQ 解释器" class="md-nav__link">
+      PostgreSQL, HAWQ 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../37/" title="Python 2＆3解释器" class="md-nav__link">
+      Python 2＆3解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../38/" title="R 解释器" class="md-nav__link">
+      R 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../39/" title="Scalding 解释器" class="md-nav__link">
+      Scalding 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../40/" title="Scio 解释器" class="md-nav__link">
+      Scio 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../41/" title="Shell 解释器" class="md-nav__link">
+      Shell 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../42/" title="Spark 解释器" class="md-nav__link">
+      Spark 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../43/" title="系统显示" class="md-nav__link">
+      系统显示
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../44/" title="系统基本显示" class="md-nav__link">
+      系统基本显示
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../45/" title="后端Angular API" class="md-nav__link">
+      后端Angular API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../46/" title="前端Angular API" class="md-nav__link">
+      前端Angular API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../47/" title="更多" class="md-nav__link">
+      更多
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../48/" title="笔记本存储" class="md-nav__link">
+      笔记本存储
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../49/" title="REST API" class="md-nav__link">
+      REST API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../50/" title="解释器 API" class="md-nav__link">
+      解释器 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        笔记本 API
+      </label>
+    
+    <a href="./" title="笔记本 API" class="md-nav__link md-nav__link--active">
+      笔记本 API
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="概述" class="md-nav__link">
+    概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="注意操作" class="md-nav__link">
+    注意操作
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="笔记列表" class="md-nav__link">
+    笔记列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建新的笔记" class="md-nav__link">
+    创建新的笔记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="获取所有段落的状态" class="md-nav__link">
+    获取所有段落的状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="获取现有的笔记信息" class="md-nav__link">
+    获取现有的笔记信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="删除笔记" class="md-nav__link">
+    删除笔记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="克隆笔记" class="md-nav__link">
+    克隆笔记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="导出笔记" class="md-nav__link">
+    导出笔记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="导入笔记" class="md-nav__link">
+    导入笔记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="运行所有段落" class="md-nav__link">
+    运行所有段落
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="停止所有段落" class="md-nav__link">
+    停止所有段落
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="清除所有段落结果" class="md-nav__link">
+    清除所有段落结果
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" title="段落操作" class="md-nav__link">
+    段落操作
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" title="创建一个新的段落" class="md-nav__link">
+    创建一个新的段落
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" title="获取段落信息" class="md-nav__link">
+    获取段落信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" title="获取单个段落的状态" class="md-nav__link">
+    获取单个段落的状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" title="更新段落配置" class="md-nav__link">
+    更新段落配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" title="删除一段" class="md-nav__link">
+    删除一段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" title="异步运行段落" class="md-nav__link">
+    异步运行段落
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" title="同步运行段落" class="md-nav__link">
+    同步运行段落
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" title="停止一段" class="md-nav__link">
+    停止一段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" title="将段落移动到特定索引" class="md-nav__link">
+    将段落移动到特定索引
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" title="全文搜索所有笔记中的段落" class="md-nav__link">
+    全文搜索所有笔记中的段落
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cron" title="Cron工作" class="md-nav__link">
+    Cron工作
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cron_1" title="添加Cron作业" class="md-nav__link">
+    添加Cron作业
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cron_2" title="删除Cron作业" class="md-nav__link">
+    删除Cron作业
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cron_3" title="获得Cron工作" class="md-nav__link">
+    获得Cron工作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" title="允许" class="md-nav__link">
+    允许
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" title="获取注释权限信息" class="md-nav__link">
+    获取注释权限信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" title="设置备注权限" class="md-nav__link">
+    设置备注权限
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../52/" title="笔记本资源 API" class="md-nav__link">
+      笔记本资源 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../53/" title="配置 API" class="md-nav__link">
+      配置 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../54/" title="凭据 API" class="md-nav__link">
+      凭据 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../55/" title="Helium API" class="md-nav__link">
+      Helium API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../56/" title="Security ( 安全 )" class="md-nav__link">
+      Security ( 安全 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../57/" title="Shiro 授权" class="md-nav__link">
+      Shiro 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../58/" title="笔记本 授权" class="md-nav__link">
+      笔记本 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../59/" title="数据源 授权" class="md-nav__link">
+      数据源 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../60/" title="Helium 授权" class="md-nav__link">
+      Helium 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../61/" title="Advanced ( 高级 )" class="md-nav__link">
+      Advanced ( 高级 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../62/" title="Zeppelin on Vagrant VM ( Zeppelin 在 Vagrant 虚拟机上 )" class="md-nav__link">
+      Zeppelin on Vagrant VM ( Zeppelin 在 Vagrant 虚拟机上 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../63/" title="Zeppelin on Spark Cluster Mode( Spark 集群模式下的 Zeppelin )" class="md-nav__link">
+      Zeppelin on Spark Cluster Mode( Spark 集群模式下的 Zeppelin )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../64/" title="Zeppelin on CDH ( Zeppelin 在 CDH 上 )" class="md-nav__link">
+      Zeppelin on CDH ( Zeppelin 在 CDH 上 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../65/" title="Contibute ( 贡献 )" class="md-nav__link">
+      Contibute ( 贡献 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../66/" title="Writing a New Interpreter ( 写一个新的解释器 )" class="md-nav__link">
+      Writing a New Interpreter ( 写一个新的解释器 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../67/" title="Writing a new Visualization (Experimental) ( 编写新的可视化（实验） )" class="md-nav__link">
+      Writing a new Visualization (Experimental) ( 编写新的可视化（实验） )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../68/" title="Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) )" class="md-nav__link">
+      Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../69/" title="Contributing to Apache Zeppelin ( Code ) ( 向 Apache Zeppelin 贡献( 代码 ) )" class="md-nav__link">
+      Contributing to Apache Zeppelin ( Code ) ( 向 Apache Zeppelin 贡献( 代码 ) )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../70/" title="Contributing to Apache Zeppelin ( Website ) ( 向 Apache Zeppelin 贡献(website) )" class="md-nav__link">
+      Contributing to Apache Zeppelin ( Website ) ( 向 Apache Zeppelin 贡献(website) )
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="概述" class="md-nav__link">
+    概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="注意操作" class="md-nav__link">
+    注意操作
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="笔记列表" class="md-nav__link">
+    笔记列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建新的笔记" class="md-nav__link">
+    创建新的笔记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="获取所有段落的状态" class="md-nav__link">
+    获取所有段落的状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="获取现有的笔记信息" class="md-nav__link">
+    获取现有的笔记信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="删除笔记" class="md-nav__link">
+    删除笔记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="克隆笔记" class="md-nav__link">
+    克隆笔记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="导出笔记" class="md-nav__link">
+    导出笔记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="导入笔记" class="md-nav__link">
+    导入笔记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="运行所有段落" class="md-nav__link">
+    运行所有段落
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="停止所有段落" class="md-nav__link">
+    停止所有段落
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="清除所有段落结果" class="md-nav__link">
+    清除所有段落结果
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" title="段落操作" class="md-nav__link">
+    段落操作
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" title="创建一个新的段落" class="md-nav__link">
+    创建一个新的段落
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" title="获取段落信息" class="md-nav__link">
+    获取段落信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" title="获取单个段落的状态" class="md-nav__link">
+    获取单个段落的状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" title="更新段落配置" class="md-nav__link">
+    更新段落配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" title="删除一段" class="md-nav__link">
+    删除一段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" title="异步运行段落" class="md-nav__link">
+    异步运行段落
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" title="同步运行段落" class="md-nav__link">
+    同步运行段落
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" title="停止一段" class="md-nav__link">
+    停止一段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" title="将段落移动到特定索引" class="md-nav__link">
+    将段落移动到特定索引
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" title="全文搜索所有笔记中的段落" class="md-nav__link">
+    全文搜索所有笔记中的段落
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cron" title="Cron工作" class="md-nav__link">
+    Cron工作
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cron_1" title="添加Cron作业" class="md-nav__link">
+    添加Cron作业
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cron_2" title="删除Cron作业" class="md-nav__link">
+    删除Cron作业
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cron_3" title="获得Cron工作" class="md-nav__link">
+    获得Cron工作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" title="允许" class="md-nav__link">
+    允许
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" title="获取注释权限信息" class="md-nav__link">
+    获取注释权限信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" title="设置备注权限" class="md-nav__link">
+    设置备注权限
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/zeppelin-doc-zh/edit/master/docs/51.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="api">笔记本 API</h1>
+<p>原文链接 : <a href="http://zeppelin.apache.org/docs/0.7.2/rest-api/rest-notebook.html">http://zeppelin.apache.org/docs/0.7.2/rest-api/rest-notebook.html</a></p>
+<p>译文链接 : <a href="http://www.apache.wiki/pages/viewpage.action?pageId=10031062">http://www.apache.wiki/pages/viewpage.action?pageId=10031062</a></p>
+<p>贡献者 : <a href="/display/~jiangzhonglian">片刻</a> <a href="/display/~apachecn">ApacheCN</a> <a href="/display/~apachechina">Apache中文网</a></p>
+<h2 id="_1">概述</h2>
+<p>Apache Zeppelin提供了几个REST API，用于交互和远程激活zeppelin功能。所有REST API都可以从以下端点开始<code>http://[zeppelin-server]:[zeppelin-port]/api</code>。需要注意的是Apache的齐柏林飞艇的REST API接收或返回JSON对象，建议你安装一些JSON观众如<a href="https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc">JSONView</a>。如果您使用Apache Zeppelin并发现需要一个额外的REST API，请<a href="http://zeppelin.apache.org/community.html">提出问题或向我们发送电子邮件</a>。</p>
+<p>笔记本REST API支持以下操作：列表，创建，获取，删除，克隆，运行，导出，导入，具体如下表所示。</p>
+<h2 id="_2">注意操作</h2>
+<h3 id="_3"><a href="http://zeppelin.apache.org/docs/0.7.2/rest-api/rest-notebook.html#list-of-the-notes">笔记列表</a></h3>
+<p>| 描述 | 此<code>GET</code>方法列出了服务器上的可用注释。笔记本JSON包含了<code>name</code>和<code>id</code>所有音符。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;status&quot;: &quot;OK&quot;,
+  &quot;message&quot;: &quot;&quot;,
+  &quot;body&quot;: [
+    {
+      &quot;name&quot;:&quot;Homepage&quot;,
+      &quot;id&quot;:&quot;2AV4WUEMK&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Zeppelin Tutorial&quot;,
+      &quot;id&quot;:&quot;2A94M5J1Z&quot;
+    }
+  ]
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_4">创建新的笔记</h3>
+<p>| 描述 | 此<code>POST</code>方法使用给定的名称或默认名称创建一个新的注释，如果没有给定。返回的JSON的body字段包含新的note id。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook</code> |
+| 成功代码 | 201 |
+| 失败代码 | 500 |
+| 示例JSON输入（无段落） | </p>
+<pre><code>{&quot;name&quot;: &quot;name of new note&quot;}
+</code></pre>
+
+<p>|
+| JSON输入示例（含初始段落） | </p>
+<pre><code>{
+  &quot;name&quot;: &quot;name of new note&quot;,
+  &quot;paragraphs&quot;: [
+    {
+      &quot;title&quot;: &quot;paragraph title1&quot;,
+      &quot;text&quot;: &quot;paragraph text1&quot;
+    },
+    {
+      &quot;title&quot;: &quot;paragraph title2&quot;,
+      &quot;text&quot;: &quot;paragraph text2&quot;
+    }
+  ]
+}
+</code></pre>
+
+<p>|
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;status&quot;: &quot;CREATED&quot;,
+  &quot;message&quot;: &quot;&quot;,
+  &quot;body&quot;: &quot;2AZPHY918&quot;
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_5">获取所有段落的状态</h3>
+<p>| 描述 | 该<code>GET</code>方法通过给定的注释id获取所有段落的状态。返回的JSON的body字段包含由段落id，段落状态，段落完成日期，段落开始日期组成的数组。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/job/[noteId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;status&quot;: &quot;OK&quot;,
+  &quot;body&quot;: [
+    {
+      &quot;id&quot;:&quot;20151121-212654_766735423&quot;,
+      &quot;status&quot;:&quot;FINISHED&quot;,
+      &quot;finished&quot;:&quot;Tue Nov 24 14:21:40 KST 2015&quot;,
+      &quot;started&quot;:&quot;Tue Nov 24 14:21:39 KST 2015&quot;
+    },
+    {
+      &quot;progress&quot;:&quot;1&quot;,
+      &quot;id&quot;:&quot;20151121-212657_730976687&quot;,
+      &quot;status&quot;:&quot;RUNNING&quot;,
+      &quot;finished&quot;:&quot;Tue Nov 24 14:21:35 KST 2015&quot;,
+      &quot;started&quot;:&quot;Tue Nov 24 14:21:40 KST 2015&quot;
+    }
+  ]
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_6">获取现有的笔记信息</h3>
+<p>| 描述 | 此<code>GET</code>方法使用给定的ID检索现有的注释的信息。返回的JSON的body字段包含有关注释中段落的信息。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/[noteId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;status&quot;: &quot;OK&quot;,
+  &quot;message&quot;: &quot;&quot;,
+  &quot;body&quot;: {
+    &quot;paragraphs&quot;: [
+      {
+        &quot;text&quot;: &quot;%sql \nselect age, count(1) value\nfrom bank \nwhere age &amp;lt; 30 \ngroup by age \norder by age&quot;,
+        &quot;config&quot;: {
+          &quot;colWidth&quot;: 4,
+          &quot;graph&quot;: {
+            &quot;mode&quot;: &quot;multiBarChart&quot;,
+            &quot;height&quot;: 300,
+            &quot;optionOpen&quot;: false,
+            &quot;keys&quot;: [
+              {
+                &quot;name&quot;: &quot;age&quot;,
+                &quot;index&quot;: 0,
+                &quot;aggr&quot;: &quot;sum&quot;
+              }
+            ],
+            &quot;values&quot;: [
+              {
+                &quot;name&quot;: &quot;value&quot;,
+                &quot;index&quot;: 1,
+                &quot;aggr&quot;: &quot;sum&quot;
+              }
+            ],
+            &quot;groups&quot;: [],
+            &quot;scatter&quot;: {
+              &quot;xAxis&quot;: {
+                &quot;name&quot;: &quot;age&quot;,
+                &quot;index&quot;: 0,
+                &quot;aggr&quot;: &quot;sum&quot;
+              },
+              &quot;yAxis&quot;: {
+                &quot;name&quot;: &quot;value&quot;,
+                &quot;index&quot;: 1,
+                &quot;aggr&quot;: &quot;sum&quot;
+              }
+            }
+          }
+        },
+        &quot;settings&quot;: {
+          &quot;params&quot;: {},
+          &quot;forms&quot;: {}
+        },
+        &quot;jobName&quot;: &quot;paragraph_1423500782552_-1439281894&quot;,
+        &quot;id&quot;: &quot;20150210-015302_1492795503&quot;,
+        &quot;results&quot;: {
+          &quot;code&quot;: &quot;SUCCESS&quot;,
+          &quot;msg&quot;: [
+            {
+              &quot;type&quot;: &quot;TABLE&quot;,
+              &quot;data&quot;: &quot;age\tvalue\n19\t4\n20\t3\n21\t7\n22\t9\n23\t20\n24\t24\n25\t44\n26\t77\n27\t94\n28\t103\n29\t97\n&quot;
+            }
+          ]
+        },
+        &quot;dateCreated&quot;: &quot;Feb 10, 2015 1:53:02 AM&quot;,
+        &quot;dateStarted&quot;: &quot;Jul 3, 2015 1:43:17 PM&quot;,
+        &quot;dateFinished&quot;: &quot;Jul 3, 2015 1:43:23 PM&quot;,
+        &quot;status&quot;: &quot;FINISHED&quot;,
+        &quot;progressUpdateIntervalMs&quot;: 500
+      }
+    ],
+    &quot;name&quot;: &quot;Zeppelin Tutorial&quot;,
+    &quot;id&quot;: &quot;2A94M5J1Z&quot;,
+    &quot;angularObjects&quot;: {},
+    &quot;config&quot;: {
+      &quot;looknfeel&quot;: &quot;default&quot;
+    },
+    &quot;info&quot;: {}
+  }
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_7">删除笔记</h3>
+<p>| 描述 | 此<code>DELETE</code>方法将删除给定注释id的注释。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/[noteId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{&quot;status&quot;: &quot;OK&quot;,&quot;message&quot;: &quot;&quot;}
+</code></pre>
+
+<p>|</p>
+<h3 id="_8">克隆笔记</h3>
+<p>| 描述 | 此<code>POST</code>方法将按照给定的ID克隆一个注释，并使用给定的名称或默认名称创建一个新的注释，如果没有给定的。返回的JSON的body字段包含新的note id。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/[noteId]</code> |
+| 成功代码 | 201 |
+| 失败代码 | 500 |
+| 示例JSON输入 | </p>
+<pre><code>{&quot;name&quot;: &quot;name of new note&quot;}
+</code></pre>
+
+<p>|
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;status&quot;: &quot;CREATED&quot;,
+  &quot;message&quot;: &quot;&quot;,
+  &quot;body&quot;: &quot;2AZPHY918&quot;
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_9">导出笔记</h3>
+<p>| 描述 | 此<code>GET</code>方法会导出一个给定ID的注释，并且gernerates一个JSON |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/export/[noteId]</code> |
+| 成功代码 | 201 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;paragraphs&quot;: [
+    {
+      &quot;text&quot;: &quot;%md This is my new paragraph in my new note&quot;,
+      &quot;dateUpdated&quot;: &quot;Jan 8, 2016 4:49:38 PM&quot;,
+      &quot;config&quot;: {
+        &quot;enabled&quot;: true
+      },
+      &quot;settings&quot;: {
+        &quot;params&quot;: {},
+        &quot;forms&quot;: {}
+      },
+      &quot;jobName&quot;: &quot;paragraph_1452300578795_1196072540&quot;,
+      &quot;id&quot;: &quot;20160108-164938_1685162144&quot;,
+      &quot;dateCreated&quot;: &quot;Jan 8, 2016 4:49:38 PM&quot;,
+      &quot;status&quot;: &quot;READY&quot;,
+      &quot;progressUpdateIntervalMs&quot;: 500
+    }
+  ],
+  &quot;name&quot;: &quot;source note for export&quot;,
+  &quot;id&quot;: &quot;2B82H3RR1&quot;,
+  &quot;angularObjects&quot;: {},
+  &quot;config&quot;: {},
+  &quot;info&quot;: {}
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_10">导入笔记</h3>
+<p>| 描述 | 该<code>POST</code>方法从注释JSON输入中输入一个注释 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/import</code> |
+| 成功代码 | 201 |
+| 失败代码 | 500 |
+| 示例JSON输入 | </p>
+<pre><code>{
+  &quot;paragraphs&quot;: [
+    {
+      &quot;text&quot;: &quot;%md This is my new paragraph in my new note&quot;,
+      &quot;dateUpdated&quot;: &quot;Jan 8, 2016 4:49:38 PM&quot;,
+      &quot;config&quot;: {
+        &quot;enabled&quot;: true
+      },
+      &quot;settings&quot;: {
+        &quot;params&quot;: {},
+        &quot;forms&quot;: {}
+      },
+      &quot;jobName&quot;: &quot;paragraph_1452300578795_1196072540&quot;,
+      &quot;id&quot;: &quot;20160108-164938_1685162144&quot;,
+      &quot;dateCreated&quot;: &quot;Jan 8, 2016 4:49:38 PM&quot;,
+      &quot;status&quot;: &quot;READY&quot;,
+      &quot;progressUpdateIntervalMs&quot;: 500
+    }
+  ],
+  &quot;name&quot;: &quot;source note for export&quot;,
+  &quot;id&quot;: &quot;2B82H3RR1&quot;,
+  &quot;angularObjects&quot;: {},
+  &quot;config&quot;: {},
+  &quot;info&quot;: {}
+}
+</code></pre>
+
+<p>|
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;status&quot;: &quot;CREATED&quot;,
+  &quot;message&quot;: &quot;&quot;,
+  &quot;body&quot;: &quot;2AZPHY918&quot;
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_11">运行所有段落</h3>
+<p>| 描述 | 此<code>POST</code>方法运行给定注释id中的所有段落。
+如果找不到Note id 404返回。如果解释器有问题返回412错误。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/job/[noteId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 404或412 |
+| 示例JSON响应 | </p>
+<pre><code>{&quot;status&quot;: &quot;OK&quot;}
+</code></pre>
+
+<p>|
+| 示例JSON错误响应 | {
+"status": "NOTFOUND",
+"message": "note not found."
+}
+{
+"status": "PRECONDITIONFAILED",
+"message": "paragraph1469771130099-278315611 Not selected or Invalid Interpreter bind"
+} |</p>
+<h3 id="_12">停止所有段落</h3>
+<p>| 描述 | 此<code>DELETE</code>方法将停止给定注释id中的所有段落。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/job/[noteId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{&quot;status&quot;:&quot;OK&quot;}
+</code></pre>
+
+<p>|</p>
+<h3 id="_13">清除所有段落结果</h3>
+<p>| 描述 | 此<code>PUT</code>方法清除给定id的注释的所有段落结果。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/[noteId]/clear</code> |
+| 成功代码 | 200 |
+| 禁止代码 | 401 |
+| 找不到代码 | 404 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{&quot;status&quot;: &quot;OK&quot;}
+</code></pre>
+
+<p>|</p>
+<h2 id="_14">段落操作</h2>
+<h3 id="_15">创建一个新的段落</h3>
+<p>| 描述 | 此<code>POST</code>方法使用JSON有效载荷创建一个新段落。返回的JSON的body字段包含新的段落ID。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/[noteId]/paragraph</code> |
+| 成功代码 | 201 |
+| 失败代码 | 500 |
+| 示例JSON输入（添加到最后） | </p>
+<pre><code>{
+  &quot;title&quot;: &quot;Paragraph insert revised&quot;,
+  &quot;text&quot;: &quot;%spark\nprintln(\&quot;Paragraph insert revised\&quot;)&quot;
+}
+</code></pre>
+
+<p>|
+| JSON输入示例（添加到特定索引） | </p>
+<pre><code>{
+  &quot;title&quot;: &quot;Paragraph insert revised&quot;,
+  &quot;text&quot;: &quot;%spark\nprintln(\&quot;Paragraph insert revised\&quot;)&quot;,
+  &quot;index&quot;: 0
+}
+</code></pre>
+
+<p>|
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;status&quot;: &quot;CREATED&quot;,
+  &quot;message&quot;: &quot;&quot;,
+  &quot;body&quot;: &quot;20151218-100330_1754029574&quot;
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_16">获取段落信息</h3>
+<p>| 描述 | 此<code>GET</code>方法使用给定的id检索现有段落的信息。返回的JSON的body字段包含有关段落的信息。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/[noteId]/paragraph/[paragraphId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;status&quot;: &quot;OK&quot;,
+  &quot;message&quot;: &quot;&quot;,
+  &quot;body&quot;: {
+    &quot;title&quot;: &quot;Paragraph2&quot;,
+    &quot;text&quot;: &quot;%spark\n\nprintln(\&quot;it's paragraph2\&quot;)&quot;,
+    &quot;dateUpdated&quot;: &quot;Dec 18, 2015 7:33:54 AM&quot;,
+    &quot;config&quot;: {
+      &quot;colWidth&quot;: 12,
+      &quot;graph&quot;: {
+        &quot;mode&quot;: &quot;table&quot;,
+        &quot;height&quot;: 300,
+        &quot;optionOpen&quot;: false,
+        &quot;keys&quot;: [],
+        &quot;values&quot;: [],
+        &quot;groups&quot;: [],
+        &quot;scatter&quot;: {}
+      },
+      &quot;enabled&quot;: true,
+      &quot;title&quot;: true,
+      &quot;editorMode&quot;: &quot;ace/mode/scala&quot;
+    },
+    &quot;settings&quot;: {
+      &quot;params&quot;: {},
+      &quot;forms&quot;: {}
+    },
+    &quot;jobName&quot;: &quot;paragraph_1450391574392_-1890856722&quot;,
+    &quot;id&quot;: &quot;20151218-073254_1105602047&quot;,
+    &quot;results&quot;: {
+      &quot;code&quot;: &quot;SUCCESS&quot;,
+      &quot;msg&quot;: [
+        {
+           &quot;type&quot;: &quot;TEXT&quot;,
+           &quot;data&quot;: &quot;it's paragraph2\n&quot;
+        }
+      ]
+    },
+    &quot;dateCreated&quot;: &quot;Dec 18, 2015 7:32:54 AM&quot;,
+    &quot;dateStarted&quot;: &quot;Dec 18, 2015 7:33:55 AM&quot;,
+    &quot;dateFinished&quot;: &quot;Dec 18, 2015 7:33:55 AM&quot;,
+    &quot;status&quot;: &quot;FINISHED&quot;,
+    &quot;progressUpdateIntervalMs&quot;: 500
+  }
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_17">获取单个段落的状态</h3>
+<p>| 描述 | 该<code>GET</code>方法通过给定的注释和段落ID获取单个段落的状态。返回的JSON的body字段包含由段落id，段落状态，段落完成日期，段落开始日期组成的数组。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/job/[noteId]/[paragraphId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;status&quot;: &quot;OK&quot;,
+  &quot;body&quot;: {
+      &quot;id&quot;:&quot;20151121-212654_766735423&quot;,
+      &quot;status&quot;:&quot;FINISHED&quot;,
+      &quot;finished&quot;:&quot;Tue Nov 24 14:21:40 KST 2015&quot;,
+      &quot;started&quot;:&quot;Tue Nov 24 14:21:39 KST 2015&quot;
+    }
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_18">更新段落配置</h3>
+<p>| 描述 | 此<code>PUT</code>方法使用给定的ID更新段落配置，以便用户可以更改段落设置，如图形类型，显示或隐藏编辑器/结果和段落大小等。您可以更新所需的某些字段，例如，<code>colWidth</code>只能通过发送请求更新字段与有效载荷<code>{"colWidth": 12.0}</code>。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/[noteId]/paragraph/[paragraphId]/config</code> |
+| 成功代码 | 200 |
+| 错误请求代码 | 400 |
+| 禁止代码 | 403 |
+| 找不到代码 | 404 |
+| 失败代码 | 500 |
+| 示例JSON输入 | </p>
+<pre><code>{
+  &quot;colWidth&quot;: 6.0,
+  &quot;graph&quot;: {
+    &quot;mode&quot;: &quot;lineChart&quot;,
+    &quot;height&quot;: 200.0,
+    &quot;optionOpen&quot;: false,
+    &quot;keys&quot;: [
+      {
+        &quot;name&quot;: &quot;age&quot;,
+        &quot;index&quot;: 0.0,
+        &quot;aggr&quot;: &quot;sum&quot;
+      }
+    ],
+    &quot;values&quot;: [
+      {
+        &quot;name&quot;: &quot;value&quot;,
+        &quot;index&quot;: 1.0,
+        &quot;aggr&quot;: &quot;sum&quot;
+      }
+    ],
+    &quot;groups&quot;: [],
+    &quot;scatter&quot;: {}
+  },
+  &quot;editorHide&quot;: true,
+  &quot;editorMode&quot;: &quot;ace/mode/markdown&quot;,
+  &quot;tableHide&quot;: false
+}
+</code></pre>
+
+<p>|
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;status&quot;:&quot;OK&quot;,
+  &quot;message&quot;:&quot;&quot;,
+  &quot;body&quot;:{
+    &quot;text&quot;:&quot;%sql \nselect age, count(1) value\nfrom bank \nwhere age \u003c 30 \ngroup by age \norder by age&quot;,
+    &quot;config&quot;:{
+      &quot;colWidth&quot;:6.0,
+      &quot;graph&quot;:{
+        &quot;mode&quot;:&quot;lineChart&quot;,
+        &quot;height&quot;:200.0,
+        &quot;optionOpen&quot;:false,
+        &quot;keys&quot;:[
+          {
+            &quot;name&quot;:&quot;age&quot;,
+            &quot;index&quot;:0.0,
+            &quot;aggr&quot;:&quot;sum&quot;
+          }
+        ],
+        &quot;values&quot;:[
+          {
+            &quot;name&quot;:&quot;value&quot;,
+            &quot;index&quot;:1.0,
+            &quot;aggr&quot;:&quot;sum&quot;
+          }
+        ],
+        &quot;groups&quot;:[],
+        &quot;scatter&quot;:{}
+      },
+      &quot;tableHide&quot;:false,
+      &quot;editorMode&quot;:&quot;ace/mode/markdown&quot;,
+      &quot;editorHide&quot;:true
+    },
+    &quot;settings&quot;:{
+      &quot;params&quot;:{},
+      &quot;forms&quot;:{}
+    },
+    &quot;apps&quot;:[],
+    &quot;jobName&quot;:&quot;paragraph1423500782552-1439281894&quot;,
+    &quot;id&quot;:&quot;20150210-015302_1492795503&quot;,
+    &quot;results&quot;:{
+      &quot;code&quot;:&quot;SUCCESS&quot;,
+      &quot;msg&quot;: [
+        {
+          &quot;type&quot;:&quot;TABLE&quot;,
+          &quot;data&quot;:&quot;age\tvalue\n19\t4\n20\t3\n21\t7\n22\t9\n23\t20\n24\t24\n25\t44\n26\t77\n27\t94\n28\t103\n29\t97\n&quot;
+        }
+      ]
+    },
+    &quot;dateCreated&quot;:&quot;Feb 10, 2015 1:53:02 AM&quot;,
+    &quot;dateStarted&quot;:&quot;Jul 3, 2015 1:43:17 PM&quot;,
+    &quot;dateFinished&quot;:&quot;Jul 3, 2015 1:43:23 PM&quot;,
+    &quot;status&quot;:&quot;FINISHED&quot;,
+    &quot;progressUpdateIntervalMs&quot;:500
+  }
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_19">删除一段</h3>
+<p>| 描述 | 此<code>DELETE</code>方法通过给定的注释和段落ID删除段落。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/[noteId]/paragraph/[paragraphId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{&quot;status&quot;: &quot;OK&quot;,&quot;message&quot;: &quot;&quot;}
+</code></pre>
+
+<p>|</p>
+<h3 id="_20">异步运行段落</h3>
+<p>| 描述 | 此<code>POST</code>方法通过给定的注释和段落ID异步运行段落。即使该段落的执行失败，该API也会始终返回SUCCESS，因为API是异步的 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/job/[noteId]/[paragraphId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON输入（可选，仅当需要更新动态表单的值时才需要） | </p>
+<pre><code>{
+  &quot;name&quot;: &quot;name of new note&quot;,
+  &quot;params&quot;: {
+    &quot;formLabel1&quot;: &quot;value1&quot;,
+    &quot;formLabel2&quot;: &quot;value2&quot;
+  }
+}
+</code></pre>
+
+<p>|
+| 示例JSON响应 | </p>
+<pre><code>{“status”：“OK”}
+</code></pre>
+
+<p>|</p>
+<h3 id="_21">同步运行段落</h3>
+<p>| 描述 | 此<code>POST</code>方法通过给定的注释和段落ID同步运行段落。该API可以根据段执行的结果返回SUCCESS或ERROR |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/run/[noteId]/[paragraphId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON输入（可选，仅当需要更新动态表单的值时才需要） | </p>
+<pre><code>{
+  &quot;name&quot;: &quot;name of new note&quot;,
+  &quot;params&quot;: {
+    &quot;formLabel1&quot;: &quot;value1&quot;,
+    &quot;formLabel2&quot;: &quot;value2&quot;
+  }
+}
+</code></pre>
+
+<p>|
+| 示例JSON响应 | </p>
+<pre><code>{&quot;status&quot;: &quot;OK&quot;}
+</code></pre>
+
+<p>|
+| 示例JSON错误 | </p>
+<pre><code>{
+   &quot;status&quot;: &quot;INTERNAL_SERVER_ERROR&quot;,
+   &quot;body&quot;: {
+       &quot;code&quot;: &quot;ERROR&quot;,
+       &quot;type&quot;: &quot;TEXT&quot;,
+       &quot;msg&quot;: &quot;bash: -c: line 0: unexpected EOF while looking for matching ``'\nbash: -c: line 1: syntax error: unexpected end of file\nExitValue: 2&quot;
+   }
+}
+</code></pre>
+
+<p>|</p>
+<h3 id="_22">停止一段</h3>
+<p>| 描述 | 该<code>DELETE</code>方法通过给定的注释和段落ID来停止段落。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/job/[noteId]/[paragraphId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{&quot;status&quot;: &quot;OK&quot;}
+</code></pre>
+
+<p>|</p>
+<h3 id="_23">将段落移动到特定索引</h3>
+<p>| 描述 | 此<code>POST</code>方法将一个段落从注释移动到特定的索引（顺序）。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/[noteId]/paragraph/[paragraphId]/move/[newIndex]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{&quot;status&quot;: &quot;OK&quot;,&quot;message&quot;: &quot;&quot;}
+</code></pre>
+
+<p>|</p>
+<h3 id="_24">全文搜索所有笔记中的段落</h3>
+<p>| 描述 | <code>GET</code> 请求将返回匹配段落的列表 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/search?q=[query]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{
+  &quot;status&quot;: &quot;OK&quot;,
+  &quot;body&quot;: [
+    {
+      &quot;id&quot;: &quot;/paragraph/&quot;,
+      &quot;name&quot;:&quot;Note Name&quot;, 
+      &quot;snippet&quot;:&quot;&quot;,
+      &quot;text&quot;:&quot;&quot;
+    }
+  ]
+}
+</code></pre>
+
+<p>|</p>
+<h2 id="cron">Cron工作</h2>
+<h3 id="cron_1">添加Cron作业</h3>
+<p>| 描述 | 此<code>POST</code>方法将cron作业添加到给定的注释id中。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/cron/[noteId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON输入 | </p>
+<pre><code>{&quot;cron&quot;: &quot;cron expression of note&quot;}
+</code></pre>
+
+<p>|
+| 示例JSON响应 | </p>
+<pre><code>{&quot;status&quot;: &quot;OK&quot;}
+</code></pre>
+
+<p>|</p>
+<h3 id="cron_2">删除Cron作业</h3>
+<p>| 描述 | 该<code>DELETE</code>方法通过给定的注释id删除cron作业。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/cron/[noteId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{&quot;status&quot;: &quot;OK&quot;}
+</code></pre>
+
+<p>|</p>
+<h3 id="cron_3">获得Cron工作</h3>
+<p>| 描述 | 该<code>GET</code>方法获取给定注释id的cron作业表达式。返回的JSON的body字段包含cron表达式。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/cron/[noteId]</code> |
+| 成功代码 | 200 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{&quot;status&quot;: &quot;OK&quot;, &quot;body&quot;: &quot;* * * * * ?&quot;}
+</code></pre>
+
+<p>|</p>
+<h2 id="_25">允许</h2>
+<h3 id="_26"><strong>获取注释权限信息</strong></h3>
+<p>| 描述 | 此<code>GET</code>方法获取注释授权信息。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/[noteId]/permissions</code> |
+| 成功代码 | 200 |
+| 禁止代码 | 403 |
+| 失败代码 | 500 |
+| 示例JSON响应 | </p>
+<pre><code>{
+   &quot;status&quot;:&quot;OK&quot;,
+   &quot;message&quot;:&quot;&quot;,
+   &quot;body&quot;:{
+      &quot;readers&quot;:[
+         &quot;user2&quot;
+      ],
+      &quot;owners&quot;:[
+         &quot;user1&quot;
+      ],
+      &quot;writers&quot;:[
+         &quot;user2&quot;
+      ]
+   }
+} 
+</code></pre>
+
+<p>|</p>
+<h3 id="_27">设置备注权限</h3>
+<p>| 描述 | 此<code>PUT</code>方法设置备注授权信息。 |
+| 网址 | <code>http://[zeppelin-server]:[zeppelin-port]/api/notebook/[noteId]/permissions</code> |
+| 成功代码 | 200 |
+| 禁止代码 | 403 |
+| 失败代码 | 500 |
+| 示例JSON输入 | </p>
+<pre><code>{
+  &quot;readers&quot;: [
+    &quot;user1&quot;
+  ],
+  &quot;owners&quot;: [
+    &quot;user2&quot;
+  ],
+  &quot;writers&quot;: [
+    &quot;user1&quot;
+  ]
+}
+</code></pre>
+
+<p>|
+| 示例JSON响应 | </p>
+<pre><code>{
+</code></pre>
+
+<pre><code>  &quot;status&quot;: &quot;OK&quot;
+}
+</code></pre>
+
+<p>|</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/zeppelin-doc-zh/" target="_blank">apachecn/zeppelin-doc-zh</a></p>
+                  <p><iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a></p>
+                  <div style="text-align:center;margin:0 0 10.5px;"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:728px;height:90px"
+                             data-ad-client="ca-pub-3565452474788507"
+                             data-ad-slot="2543897000"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script></div>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'zeppelin-doc-zh',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../50/" title="解释器 API" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                解释器 API
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../52/" title="笔记本资源 API" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                笔记本资源 API
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.583bbe55.js"></script>
+      
+        
+        
+          
+          <script src="../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

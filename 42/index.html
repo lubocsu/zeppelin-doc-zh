@@ -1,0 +1,1961 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Zeppelin 0.7.2 中文文档">
+      
+      
+        <link rel="canonical" href="http://zeppelin.apachecn.org/42/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>Spark 解释器 - Zeppelin 0.7.2 中文文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4bb062e5de7b0bfc7e39b8d9fc44d5ca";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+    <!-- google webmaster -->
+    <meta name="google-site-verification" content="pyo9N70ZWyh8JB43bIu633mhxesJ1IcwWCZlM3jUfFo" />
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../#spark" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://zeppelin.apachecn.org" title="Zeppelin 0.7.2 中文文档" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Zeppelin 0.7.2 中文文档
+              </span>
+              <span class="md-header-nav__topic">
+                Spark 解释器
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/zeppelin-doc-zh/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      zeppelin-doc-zh
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://zeppelin.apachecn.org" title="Zeppelin 0.7.2 中文文档" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Zeppelin 0.7.2 中文文档
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/zeppelin-doc-zh/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      zeppelin-doc-zh
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Zeppelin 0.7.2 中文文档" class="md-nav__link">
+      Zeppelin 0.7.2 中文文档
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1/" title="快速入门" class="md-nav__link">
+      快速入门
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2/" title="什么是Apache Zeppelin?" class="md-nav__link">
+      什么是Apache Zeppelin?
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3/" title="安装" class="md-nav__link">
+      安装
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4/" title="配置" class="md-nav__link">
+      配置
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5/" title="探索Apache Zeppelin UI" class="md-nav__link">
+      探索Apache Zeppelin UI
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6/" title="教程" class="md-nav__link">
+      教程
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7/" title="动态表单" class="md-nav__link">
+      动态表单
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8/" title="发表你的段落" class="md-nav__link">
+      发表你的段落
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9/" title="自定义Zeppelin主页" class="md-nav__link">
+      自定义Zeppelin主页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10/" title="升级Zeppelin版本" class="md-nav__link">
+      升级Zeppelin版本
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11/" title="从源码编译" class="md-nav__link">
+      从源码编译
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12/" title="使用Flink和Spark Clusters安装Zeppelin教程" class="md-nav__link">
+      使用Flink和Spark Clusters安装Zeppelin教程
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13/" title="解释器" class="md-nav__link">
+      解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14/" title="概述" class="md-nav__link">
+      概述
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15/" title="解释器安装" class="md-nav__link">
+      解释器安装
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16/" title="解释器依赖管理" class="md-nav__link">
+      解释器依赖管理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../17/" title="解释器的模拟用户" class="md-nav__link">
+      解释器的模拟用户
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../18/" title="解释员执行Hook（实验）" class="md-nav__link">
+      解释员执行Hook（实验）
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../19/" title="Alluxio 解释器" class="md-nav__link">
+      Alluxio 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../20/" title="Beam 解释器" class="md-nav__link">
+      Beam 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../21/" title="BigQuery 解释器" class="md-nav__link">
+      BigQuery 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../22/" title="Cassandra CQL 解释器" class="md-nav__link">
+      Cassandra CQL 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../23/" title="Elasticsearch 解释器" class="md-nav__link">
+      Elasticsearch 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../24/" title="Flink 解释器" class="md-nav__link">
+      Flink 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../25/" title="Geode/Gemfire OQL 解释器" class="md-nav__link">
+      Geode/Gemfire OQL 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../26/" title="HBase Shell 解释器" class="md-nav__link">
+      HBase Shell 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../27/" title="HDFS文件系统 解释器" class="md-nav__link">
+      HDFS文件系统 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../28/" title="Hive 解释器" class="md-nav__link">
+      Hive 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../29/" title="Ignite 解释器" class="md-nav__link">
+      Ignite 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../30/" title="JDBC通用 解释器" class="md-nav__link">
+      JDBC通用 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../31/" title="Kylin 解释器" class="md-nav__link">
+      Kylin 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../32/" title="Lens 解释器" class="md-nav__link">
+      Lens 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../33/" title="Livy 解释器" class="md-nav__link">
+      Livy 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../34/" title="Markdown 解释器" class="md-nav__link">
+      Markdown 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../35/" title="Pig 解释器" class="md-nav__link">
+      Pig 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../36/" title="PostgreSQL, HAWQ 解释器" class="md-nav__link">
+      PostgreSQL, HAWQ 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../37/" title="Python 2＆3解释器" class="md-nav__link">
+      Python 2＆3解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../38/" title="R 解释器" class="md-nav__link">
+      R 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../39/" title="Scalding 解释器" class="md-nav__link">
+      Scalding 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../40/" title="Scio 解释器" class="md-nav__link">
+      Scio 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../41/" title="Shell 解释器" class="md-nav__link">
+      Shell 解释器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Spark 解释器
+      </label>
+    
+    <a href="./" title="Spark 解释器" class="md-nav__link md-nav__link--active">
+      Spark 解释器
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="概述" class="md-nav__link">
+    概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="配置" class="md-nav__link">
+    配置
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1spark_home" title="1.导出SPARK_HOME" class="md-nav__link">
+    1.导出SPARK_HOME
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="2.在“解释器”菜单中设置主机" class="md-nav__link">
+    2.在“解释器”菜单中设置主机
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sparkcontextsqlcontextsparksessionzeppelincontext" title="SparkContext，SQLContext，SparkSession，ZeppelinContext" class="md-nav__link">
+    SparkContext，SQLContext，SparkSession，ZeppelinContext
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="依赖管理" class="md-nav__link">
+    依赖管理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" title="1.通过解释器设置设置依赖关系" class="md-nav__link">
+    1.通过解释器设置设置依赖关系
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2spark" title="2.加载Spark属性" class="md-nav__link">
+    2.加载Spark属性
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3sparkdep" title="3.通过％spark.dep解释器加载动态依赖关系" class="md-nav__link">
+    3.通过％spark.dep解释器加载动态依赖关系
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zeppelincontext" title="ZeppelinContext" class="md-nav__link">
+    ZeppelinContext
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="对象交换" class="md-nav__link">
+    对象交换
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="表格创作" class="md-nav__link">
+    表格创作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#matplotlibpyspark" title="Matplotlib集成（pyspark）" class="md-nav__link">
+    Matplotlib集成（pyspark）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="解释器设置选项" class="md-nav__link">
+    解释器设置选项
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberoszeppelin" title="用Kerberos设置Zeppelin" class="md-nav__link">
+    用Kerberos设置Zeppelin
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="配置设置" class="md-nav__link">
+    配置设置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../43/" title="系统显示" class="md-nav__link">
+      系统显示
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../44/" title="系统基本显示" class="md-nav__link">
+      系统基本显示
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../45/" title="后端Angular API" class="md-nav__link">
+      后端Angular API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../46/" title="前端Angular API" class="md-nav__link">
+      前端Angular API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../47/" title="更多" class="md-nav__link">
+      更多
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../48/" title="笔记本存储" class="md-nav__link">
+      笔记本存储
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../49/" title="REST API" class="md-nav__link">
+      REST API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../50/" title="解释器 API" class="md-nav__link">
+      解释器 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../51/" title="笔记本 API" class="md-nav__link">
+      笔记本 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../52/" title="笔记本资源 API" class="md-nav__link">
+      笔记本资源 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../53/" title="配置 API" class="md-nav__link">
+      配置 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../54/" title="凭据 API" class="md-nav__link">
+      凭据 API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../55/" title="Helium API" class="md-nav__link">
+      Helium API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../56/" title="Security ( 安全 )" class="md-nav__link">
+      Security ( 安全 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../57/" title="Shiro 授权" class="md-nav__link">
+      Shiro 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../58/" title="笔记本 授权" class="md-nav__link">
+      笔记本 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../59/" title="数据源 授权" class="md-nav__link">
+      数据源 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../60/" title="Helium 授权" class="md-nav__link">
+      Helium 授权
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../61/" title="Advanced ( 高级 )" class="md-nav__link">
+      Advanced ( 高级 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../62/" title="Zeppelin on Vagrant VM ( Zeppelin 在 Vagrant 虚拟机上 )" class="md-nav__link">
+      Zeppelin on Vagrant VM ( Zeppelin 在 Vagrant 虚拟机上 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../63/" title="Zeppelin on Spark Cluster Mode( Spark 集群模式下的 Zeppelin )" class="md-nav__link">
+      Zeppelin on Spark Cluster Mode( Spark 集群模式下的 Zeppelin )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../64/" title="Zeppelin on CDH ( Zeppelin 在 CDH 上 )" class="md-nav__link">
+      Zeppelin on CDH ( Zeppelin 在 CDH 上 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../65/" title="Contibute ( 贡献 )" class="md-nav__link">
+      Contibute ( 贡献 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../66/" title="Writing a New Interpreter ( 写一个新的解释器 )" class="md-nav__link">
+      Writing a New Interpreter ( 写一个新的解释器 )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../67/" title="Writing a new Visualization (Experimental) ( 编写新的可视化（实验） )" class="md-nav__link">
+      Writing a new Visualization (Experimental) ( 编写新的可视化（实验） )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../68/" title="Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) )" class="md-nav__link">
+      Writing a new Application (Experimental) ( 写一个新的应用程序( 实验 ) )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../69/" title="Contributing to Apache Zeppelin ( Code ) ( 向 Apache Zeppelin 贡献( 代码 ) )" class="md-nav__link">
+      Contributing to Apache Zeppelin ( Code ) ( 向 Apache Zeppelin 贡献( 代码 ) )
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../70/" title="Contributing to Apache Zeppelin ( Website ) ( 向 Apache Zeppelin 贡献(website) )" class="md-nav__link">
+      Contributing to Apache Zeppelin ( Website ) ( 向 Apache Zeppelin 贡献(website) )
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="概述" class="md-nav__link">
+    概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="配置" class="md-nav__link">
+    配置
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1spark_home" title="1.导出SPARK_HOME" class="md-nav__link">
+    1.导出SPARK_HOME
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="2.在“解释器”菜单中设置主机" class="md-nav__link">
+    2.在“解释器”菜单中设置主机
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sparkcontextsqlcontextsparksessionzeppelincontext" title="SparkContext，SQLContext，SparkSession，ZeppelinContext" class="md-nav__link">
+    SparkContext，SQLContext，SparkSession，ZeppelinContext
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="依赖管理" class="md-nav__link">
+    依赖管理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" title="1.通过解释器设置设置依赖关系" class="md-nav__link">
+    1.通过解释器设置设置依赖关系
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2spark" title="2.加载Spark属性" class="md-nav__link">
+    2.加载Spark属性
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3sparkdep" title="3.通过％spark.dep解释器加载动态依赖关系" class="md-nav__link">
+    3.通过％spark.dep解释器加载动态依赖关系
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zeppelincontext" title="ZeppelinContext" class="md-nav__link">
+    ZeppelinContext
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="对象交换" class="md-nav__link">
+    对象交换
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="表格创作" class="md-nav__link">
+    表格创作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#matplotlibpyspark" title="Matplotlib集成（pyspark）" class="md-nav__link">
+    Matplotlib集成（pyspark）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="解释器设置选项" class="md-nav__link">
+    解释器设置选项
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberoszeppelin" title="用Kerberos设置Zeppelin" class="md-nav__link">
+    用Kerberos设置Zeppelin
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="配置设置" class="md-nav__link">
+    配置设置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/zeppelin-doc-zh/edit/master/docs/42.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="spark">Spark 解释器</h1>
+<p>原文链接 : <a href="http://zeppelin.apache.org/docs/0.7.2/interpreter/spark.html">http://zeppelin.apache.org/docs/0.7.2/interpreter/spark.html</a></p>
+<p>译文链接 : <a href="http://www.apache.wiki/pages/viewpage.action?pageId=10030923">http://www.apache.wiki/pages/viewpage.action?pageId=10030923</a></p>
+<p>贡献者 : <a href="/display/~jiangzhonglian">片刻</a> <a href="/display/~apachecn">ApacheCN</a> <a href="/display/~apachechina">Apache中文网</a></p>
+<h2 id="_1">概述</h2>
+<p><a href="http://spark.apache.org/">Apache Spark</a>是一种快速和通用的集群计算系统。它提供Java，Scala，Python和R中的高级API，以及支持一般执行图的优化引擎。Zeppelin支持Apache Spark，Spark解释器组由5个解释器组成。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>％spark</td>
+<td>SparkInterpreter</td>
+<td>创建一个SparkContext并提供Scala环境</td>
+</tr>
+<tr>
+<td>％spark.pyspark</td>
+<td>PySparkInterpreter</td>
+<td>提供Python环境</td>
+</tr>
+<tr>
+<td>％spark.r</td>
+<td>SparkRInterpreter</td>
+<td>提供具有SparkR支持的R环境</td>
+</tr>
+<tr>
+<td>％spark.sql</td>
+<td>SparkSQLInterpreter</td>
+<td>提供SQL环境</td>
+</tr>
+<tr>
+<td>％spark.dep</td>
+<td>DepInterpreter</td>
+<td>依赖加载器</td>
+</tr>
+</tbody>
+</table>
+<p><a href="http://zeppelin.apache.org/docs/0.7.1/interpreter/spark.html#configuration"> </a></p>
+<h2 id="_2">配置</h2>
+<p>Spark解释器可以配置为由Zeppelin提供的属性。您还可以设置表中未列出的其他Spark属性。有关其他属性的列表，请参阅<a href="http://spark.apache.org/docs/latest/configuration.html#available-properties">Spark可用属性</a>。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ARGS</td>
+<td> </td>
+<td>Spark命令行参考</td>
+</tr>
+<tr>
+<td>master</td>
+<td>local[*]</td>
+<td>Spark master uri.</td>
+</tr>
+<tr>
+<td>例如：spark://masterhost:7077</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>spark.app.name</td>
+<td>Zeppelin</td>
+<td>Spark应用的名称。</td>
+</tr>
+<tr>
+<td>spark.cores.max</td>
+<td> </td>
+<td>要使用的核心总数。</td>
+</tr>
+<tr>
+<td>空值使用所有可用的核心。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>spark.executor.memory</td>
+<td>1g</td>
+<td>每个worker实例的执行程序内存。</td>
+</tr>
+<tr>
+<td>ex）512m，32g</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>zeppelin.dep.additionalRemoteRepository</td>
+<td>spark-packages, </td>
+<td></td>
+</tr>
+<tr>
+<td><a href="http://dl.bintray.com/spark-packages/maven">http://dl.bintray.com/spark-packages/maven</a>, </td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>false;</td>
+<td> <code>id,remote-repository-URL,is-snapshot;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>每个远程存储库的列表。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>zeppelin.dep.localrepo</td>
+<td>local-repo</td>
+<td>依赖加载器的本地存储库</td>
+</tr>
+<tr>
+<td>zeppelin.pyspark.python</td>
+<td>python</td>
+<td>Python命令来运行pyspark</td>
+</tr>
+<tr>
+<td>zeppelin.spark.concurrentSQL</td>
+<td>python</td>
+<td>如果设置为true，则同时执行多个SQL。</td>
+</tr>
+<tr>
+<td>zeppelin.spark.maxResult</td>
+<td>1000</td>
+<td>要显示的Spark SQL结果的最大数量。</td>
+</tr>
+<tr>
+<td>zeppelin.spark.printREPLOutput</td>
+<td>true</td>
+<td>打印REPL输出</td>
+</tr>
+<tr>
+<td>zeppelin.spark.useHiveContext</td>
+<td>true</td>
+<td>如果它是真的，使用HiveContext而不是SQLContext。</td>
+</tr>
+<tr>
+<td>zeppelin.spark.importImplicit</td>
+<td>true</td>
+<td>导入含义，UDF集合和sql如果设置为true。</td>
+</tr>
+</tbody>
+</table>
+<p>没有任何配置，Spark解释器在本地模式下开箱即用。但是，如果要连接到Spark群集，则需要按照以下两个简单步骤进行操作。</p>
+<h3 id="1spark_home">1.导出SPARK_HOME</h3>
+<p>在<code>conf/zeppelin-env.sh</code>，导出<code>SPARK_HOME</code>环境变量与您的Spark安装路径。</p>
+<p>例如，</p>
+<pre><code>export SPARK_HOME=/usr/lib/spark 
+</code></pre>
+
+<p>您可以选择设置更多的环境变量</p>
+<pre><code># set hadoop conf dir
+export HADOOP_CONF_DIR=/usr/lib/hadoop 
+
+# set options to pass spark-submit command
+export SPARK_SUBMIT_OPTIONS=&quot;--packages com.databricks:spark-csv_2.10:1.2.0&quot; 
+
+# extra classpath. e.g. set classpath for hive-site.xml
+export ZEPPELIN_INTP_CLASSPATH_OVERRIDES=/etc/hive/conf 
+</code></pre>
+
+<p>对于Windows，确保你<code>winutils.exe</code>在<code>%HADOOP_HOME%\bin</code>。有关详细信息，请参阅<a href="https://wiki.apache.org/hadoop/WindowsProblems">在Windows上运行Hadoop的问题</a>。</p>
+<h3 id="2">2.在“解释器”菜单中设置主机</h3>
+<p>启动Zeppelin后，转到<strong>解释器</strong>菜单并在Spark解释器设置中编辑<strong>主</strong>属性。该值可能因您的Spark群集部署类型而异。</p>
+<p>例如，</p>
+<ul>
+<li><strong>local[*]</strong>  本地模式</li>
+<li><strong>spark://master:7077</strong> standalone 集群模式</li>
+<li><strong>yarn-client</strong> Yarn 客户端模式</li>
+<li><strong>mesos://host:5050</strong> Mesos 集群模式</li>
+</ul>
+<p>而已。Zeppelin将使用任何版本的Spark和任何部署类型，而不用这种方式重建Zeppelin。有关Spark＆Zeppelin版本兼容性的更多信息，请参阅<a href="https://zeppelin.apache.org/download.html">Zeppelin下载页面</a>中的“可用的口译员”部分。</p>
+<blockquote>
+<p>请注意，不导出<code>SPARK_HOME</code>，它以本地模式运行，包含版本的Spark。附带的版本可能因构建配置文件而异。</p>
+</blockquote>
+<h2 id="sparkcontextsqlcontextsparksessionzeppelincontext">SparkContext，SQLContext，SparkSession，ZeppelinContext</h2>
+<p>SparkContext，SQLContext和ZeppelinContext会自动创建并显示为变量名<code>sc</code>，<code>sqlContext</code>并<code>z</code>分别在Scala，Python和R环境中公开。从0.6.1起，<code>spark</code>当您使用Spark 2.x时，SparkSession可以作为变量使用。</p>
+<blockquote>
+<p>请注意，Scala / Python / R环境共享相同的SparkContext，SQLContext和ZeppelinContext实例。</p>
+</blockquote>
+<h2 id="_3">依赖管理</h2>
+<p>在Spark解释器中加载外部库有两种方法。首先是使用解释器设置菜单，其次是加载Spark属性。</p>
+<h3 id="1">1.通过解释器设置设置依赖关系</h3>
+<p>有关详细信息，请参阅<a href="http://www.apache.wiki/pages/viewpage.action?pageId=10030743">解释器依赖管理</a>。</p>
+<h3 id="2spark">2.加载Spark属性</h3>
+<p>一旦<code>SPARK_HOME</code>被设置<code>conf/zeppelin-env.sh</code>，Zeppelin使用<code>spark-submit</code>作为Spark解释赛跑者。<code>spark-submit</code>支持两种方式来加载配置。第一个是命令行选项，如--master和飞艇可以通过这些选项<code>spark-submit</code>通过导出<code>SPARK_SUBMIT_OPTIONS</code>在<code>conf/zeppelin-env.sh</code>。二是从中读取配置选项<code>SPARK_HOME/conf/spark-defaults.conf</code>。用户可以设置分发库的Spark属性有：</p>
+<table>
+<thead>
+<tr>
+<th>火花defaults.conf</th>
+<th>SPARK_SUBMIT_OPTIONS</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spark.jars</td>
+<td>--jars</td>
+<td>包含在驱动程序和执行器类路径上的本地jar的逗号分隔列表。</td>
+</tr>
+<tr>
+<td>spark.jars.packages</td>
+<td>--packages</td>
+<td>逗号分隔列表，用于包含在驱动程序和执行器类路径上的jar的maven坐标。将搜索当地的maven repo，然后搜索maven中心和由–repositories提供的任何其他远程存储库。坐标的格式应该是<code>groupId:artifactId:version</code>。</td>
+</tr>
+<tr>
+<td>spark.files</td>
+<td>--files</td>
+<td>要放置在每个执行器的工作目录中的逗号分隔的文件列表。</td>
+</tr>
+</tbody>
+</table>
+<p>以下是几个例子：</p>
+<ul>
+<li>
+<p><code>SPARK_SUBMIT_OPTIONS</code> 在 <code>conf/zeppelin-env.sh</code></p>
+<p><code>export SPARK_SUBMIT_OPTIONS="--packages com.databricks:spark-csv_2.10:1.2.0 --jars /path/mylib1.jar,/path/mylib2.jar --files /path/mylib1.py,/path/mylib2.zip,/path/mylib3.egg"</code></p>
+</li>
+<li>
+<p><code>SPARK_HOME/conf/spark-defaults.conf</code></p>
+<p><code>spark.jars        /path/mylib1.jar,/path/mylib2.jar 
+spark.jars.packages   com.databricks:spark-csv_2.10:1.2.0 
+spark.files       /path/mylib1.py,/path/mylib2.egg,/path/mylib3.zip</code></p>
+</li>
+</ul>
+<h3 id="3sparkdep">3.通过％spark.dep解释器加载动态依赖关系</h3>
+<blockquote>
+<p>注：<code>%spark.dep</code>解释负载库<code>%spark</code>和<code>%spark.pyspark</code>而不是 <code>%spark.sql</code>翻译。所以我们建议你改用第一个选项。</p>
+</blockquote>
+<p>当你的代码需要外部库，而不是下载/复制/重新启动Zeppelin，你可以使用<code>%spark.dep</code>解释器轻松地完成以下工作。</p>
+<ul>
+<li>从maven库递归加载库</li>
+<li>从本地文件系统加载库</li>
+<li>添加额外的maven仓库</li>
+<li>自动将库添加到SparkCluster（可以关闭）</li>
+</ul>
+<p>解释器利用Scala环境。所以你可以在这里编写任何Scala代码。需要注意的是<code>%spark.dep</code>解释前应使用<code>%spark</code>，<code>%spark.pyspark</code>，<code>%spark.sql</code>。</p>
+<p>这是用法</p>
+<pre><code>%spark.dep
+z.reset() // clean up previously added artifact and repository 
+
+// add maven repository
+z.addRepo(&quot;RepoName&quot;).url(&quot;RepoURL&quot;) 
+
+// add maven snapshot repository
+z.addRepo(&quot;RepoName&quot;).url(&quot;RepoURL&quot;).snapshot() 
+
+// add credentials for private maven repository
+z.addRepo(&quot;RepoName&quot;).url(&quot;RepoURL&quot;).username(&quot;username&quot;).password(&quot;password&quot;) 
+
+// add artifact from filesystem
+z.load(&quot;/path/to.jar&quot;) 
+
+// add artifact from maven repository, with no dependency
+z.load(&quot;groupId:artifactId:version&quot;).excludeAll() 
+
+// add artifact recursively
+z.load(&quot;groupId:artifactId:version&quot;) 
+
+// add artifact recursively except comma separated GroupID:ArtifactId list
+z.load(&quot;groupId:artifactId:version&quot;).exclude(&quot;groupId:artifactId,groupId:artifactId, ...&quot;) 
+
+// exclude with pattern
+z.load(&quot;groupId:artifactId:version&quot;).exclude(*)
+z.load(&quot;groupId:artifactId:version&quot;).exclude(&quot;groupId:artifactId:*&quot;)
+z.load(&quot;groupId:artifactId:version&quot;).exclude(&quot;groupId:*&quot;) 
+
+// local() skips adding artifact to spark clusters (skipping sc.addJar())
+z.load(&quot;groupId:artifactId:version&quot;).local() 
+</code></pre>
+
+<h2 id="zeppelincontext">ZeppelinContext</h2>
+<p>Zeppelin 在Scala / Python环境中自动注入<code>ZeppelinContext</code>变量<code>z</code>。<code>ZeppelinContext</code>提供了一些额外的功能和实用程序。</p>
+<h3 id="_4">对象交换</h3>
+<p><code>ZeppelinContext</code>扩展地图，它在Scala和Python环境之间共享。所以你可以把Scala的一些对象从Python中读出来，反之亦然。</p>
+<p><strong>Scala</strong></p>
+<pre><code>// Put object from scala
+%spark
+val myObject = ...
+z.put(&quot;objName&quot;, myObject) 
+
+// Exchanging data frames
+myScalaDataFrame = ...
+z.put(&quot;myScalaDataFrame&quot;, myScalaDataFrame) 
+
+val myPythonDataFrame = z.get(&quot;myPythonDataFrame&quot;).asInstanceOf[DataFrame] 
+</code></pre>
+
+<p><strong>Python</strong>  展开原码</p>
+<pre><code># Get object from python
+%spark.pyspark
+myObject = z.get(&quot;objName&quot;)
+
+# Exchanging data frames
+myPythonDataFrame = ...
+z.put(&quot;myPythonDataFrame&quot;, postsDf._jdf)
+
+myScalaDataFrame = DataFrame(z.get(&quot;myScalaDataFrame&quot;), sqlContext) 
+</code></pre>
+
+<h3 id="_5">表格创作</h3>
+<p><code>ZeppelinContext</code>提供了创建表单的功能。在Scala和Python环境中，您可以以编程方式创建表单。</p>
+<p><strong>Scala</strong></p>
+<pre><code>%spark
+/* Create text input form */
+z.input(&quot;formName&quot;) 
+
+/* Create text input form with default value */
+z.input(&quot;formName&quot;, &quot;defaultValue&quot;) 
+
+/* Create select form */
+z.select(&quot;formName&quot;, Seq((&quot;option1&quot;, &quot;option1DisplayName&quot;),
+                         (&quot;option2&quot;, &quot;option2DisplayName&quot;))) 
+
+/* Create select form with default value*/
+z.select(&quot;formName&quot;, &quot;option1&quot;, Seq((&quot;option1&quot;, &quot;option1DisplayName&quot;),
+                                    (&quot;option2&quot;, &quot;option2DisplayName&quot;))) 
+</code></pre>
+
+<pre><code>%spark.pyspark
+# Create text input form
+z.input(&quot;formName&quot;)
+
+# Create text input form with default value
+z.input(&quot;formName&quot;, &quot;defaultValue&quot;)
+
+# Create select form
+z.select(&quot;formName&quot;, [(&quot;option1&quot;, &quot;option1DisplayName&quot;),
+                      (&quot;option2&quot;, &quot;option2DisplayName&quot;)])
+
+# Create select form with default value
+z.select(&quot;formName&quot;, [(&quot;option1&quot;, &quot;option1DisplayName&quot;),
+                      (&quot;option2&quot;, &quot;option2DisplayName&quot;)], &quot;option1&quot;) 
+</code></pre>
+
+<pre><code>在sql环境中，可以在简单的模板中创建表单。
+</code></pre>
+
+<pre><code>%spark.sql
+select * from ${table=defaultTableName} where text like '%${search}%' 
+</code></pre>
+
+<p>要了解有关动态表单的更多信息，请检查<a href="http://www.apache.wiki/pages/viewpage.action?pageId=10030585">Zeppelin 动态表单</a>。</p>
+<p><a href="http://zeppelin.apache.org/docs/0.7.1/interpreter/spark.html#matplotlib-integration-pyspark"> </a></p>
+<h2 id="matplotlibpyspark">Matplotlib集成（pyspark）</h2>
+<p>这两个<code>python</code>和<code>pyspark</code>解释器都内置了对内联可视化的支持<code>matplotlib</code>，这是一个流行的python绘图库。更多细节可以在<a href="http://zeppelin.apache.org/docs/0.7.1/interpreter/python.html">python解释器文档中找到</a>，因为matplotlib的支持是相同的。通过利用齐柏林内置的<a href="http://zeppelin.apache.org/docs/0.7.1/displaysystem/back-end-angular.html">角度显示系统</a>，可以通过pyspark进行更先进的交互式绘图，如下所示：</p>
+<p><img alt="" src="../img/f15d5066f1d932b2bc4d5c9c537fbc38.jpg" /></p>
+<h2 id="_6">解释器设置选项</h2>
+<p>您可以选择其中之一<code>shared</code>，<code>scoped</code>以及<code>isolated</code>配置Spark解释器的选项。Spark解释器为每个笔记本创建分离的Scala编译器，但在<code>scoped</code>模式（实验）中共享一个SparkContext。它在每个笔记本<code>isolated</code>模式下创建分离的SparkContext 。</p>
+<h2 id="kerberoszeppelin">用Kerberos设置Zeppelin</h2>
+<p>使用Zeppelin，Kerberos Key Distribution Center（KDC）和Spark on YARN进行逻辑设置：</p>
+<p><img alt="" src="../img/f0e1fc938097af02b2f0572e33c1317d.jpg" /></p>
+<h3 id="_7">配置设置</h3>
+<ol>
+<li>
+<p>在安装Zeppelin的服务器上，安装Kerberos客户端模块和配置，krb5.conf。这是为了使服务器与KDC进行通信。</p>
+</li>
+<li>
+<p>设置<code>SPARK_HOME</code>在<code>[ZEPPELIN_HOME]/conf/zeppelin-env.sh</code>使用火花提交（此外，您可能需要设置<code>export HADOOP_CONF_DIR=/etc/hadoop/conf</code>）</p>
+</li>
+<li>
+<p>将以下两个属性添加到Spark configuration（<code>[SPARK_HOME]/conf/spark-defaults.conf</code>）中：</p>
+<p><code>spark.yarn.principal 
+spark.yarn.keytab</code></p>
+<p>&gt; <strong>注意：</strong>如果您没有访问以上spark-defaults.conf文件的权限，可以选择地，您可以通过Zeppelin UI中的“解释器”选项卡将上述行添加到“Spark Interpreter”设置。</p>
+</li>
+<li>
+<p>而已。玩Zeppelin！</p>
+</li>
+</ol>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/zeppelin-doc-zh/" target="_blank">apachecn/zeppelin-doc-zh</a></p>
+                  <p><iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=zeppelin-doc-zh&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a></p>
+                  <div style="text-align:center;margin:0 0 10.5px;"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:728px;height:90px"
+                             data-ad-client="ca-pub-3565452474788507"
+                             data-ad-slot="2543897000"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script></div>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'zeppelin-doc-zh',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../41/" title="Shell 解释器" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                Shell 解释器
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../43/" title="系统显示" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                系统显示
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.583bbe55.js"></script>
+      
+        
+        
+          
+          <script src="../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>
